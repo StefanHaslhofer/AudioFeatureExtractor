@@ -19,43 +19,35 @@ def slice_audio(audio, sr, labels):
     return slices
 
 
-def describe_stft(stft, sr):
+def describe_mfcc(mfcc, sr):
     """
     extract features from audio range (as described in https://maelfabien.github.io/machinelearning/Speech9/#)
     """
-    db = librosa.amplitude_to_db(np.mean(stft, axis=1), ref=np.max)
-    librosa.display.specshow(db, sr=sr, y_axis='log', x_axis='time')
-    plt.show()
-
     # mean value for each frequency bin
-    freq_mean = np.mean(stft, axis=1)
-    freq = librosa.fft_frequencies(sr=sr)
+    bin_mean = np.mean(mfcc, axis=1)
 
     # mean energy
-    mean = np.mean(stft)
-    energy = np.mean(stft) ** 2
+    mean = np.mean(mfcc)
+    mean_squared = np.mean(mfcc) ** 2
     # standard derivation from mean energy
-    std = np.std(stft)
+    std = np.std(mfcc)
     var = std ** 2
-    # frequencies with max/min mean energy
-    max_energy = np.amax(freq_mean)
-    max_energy_mfcc = freq[np.argmax(freq_mean)]
-    min_energy = np.amin(freq_mean)
-    min_energy_mfcc = freq[np.argmin(freq_mean)]
+    median = np.median(mfcc)
+    # mfcc bins with max/min mean energy
+    max_energy = np.amax(bin_mean)
+    max_energy_bin = np.argmax(bin_mean)
+    min_energy = np.amin(bin_mean)
+    min_energy_bin = np.argmin(bin_mean)
     # quantiles
-    q1 = np.quantile(freq_mean, 0.25)
-    q3 = np.quantile(freq_mean, 0.75)
-    # frequency bin of each quantile
-    q1_mfcc = np.where(freq_mean == q1)[0][0]
-    q2_mfcc = np.where(freq_mean == q3)[0][0]
+    q1 = np.quantile(bin_mean, 0.25)
+    q3 = np.quantile(bin_mean, 0.75)
 
-    median = np.median(stft)
     # larger vehicles should be asymmetric to lower frequencies
-    skew = scipy.stats.skew(freq_mean)
-    kurt = scipy.stats.kurtosis(freq_mean)
-    iqr = scipy.stats.iqr(freq_mean)
+    skew = scipy.stats.skew(bin_mean)
+    kurt = scipy.stats.kurtosis(bin_mean)
+    iqr = scipy.stats.iqr(bin_mean)
 
-    return [mean, energy, std, max_energy, max_energy_mfcc, min_energy, min_energy_mfcc, q1, q3, q1_mfcc, q2_mfcc, median, skew, kurt, iqr]
+    return [mean, mean_squared, std, var, median, max_energy, max_energy_bin, min_energy, min_energy_bin, q1, q3, skew, kurt, iqr]
 
 
 def ext_freq_features(samples, sr, labels):
@@ -68,10 +60,10 @@ def ext_freq_features(samples, sr, labels):
     vec = []
     for idx, y in enumerate(samples):
         print('extracting features of sample ', idx, ' of ', len(samples), '...')
-        stft_abs = np.abs(librosa.stft(y))
+        mfcc = librosa.feature.mfcc(y=y, sr=sr)
         # append tuple of feature vector and label vector
         vec.append((
-            describe_stft(stft_abs, sr),
+            describe_mfcc(mfcc, sr),
             [labels['vehicleType'][idx], labels['direction'][idx]]
         ))
 
@@ -89,35 +81,26 @@ freq_features = ext_freq_features(audio_slices, sample_rate, labels)
 def scatter_plot(data):
     plt.figure()
     plt.xlabel('energy')
-    plt.ylabel('mean')
+    plt.ylabel('max_energy')
 
     x1 = []
     x2 = []
     for d in data:
-        if d[1][0] == 'Car':
-            x1.append(d[0][0])
-            x2.append(d[0][1])
+        if d[1][0] == 'medium':
+            x1.append(d[0][1])
+            x2.append(d[0][5])
 
     plt.scatter(x1, x2)
 
     x1 = []
     x2 = []
     for d in data:
-        if d[1][0] == 'Bus':
-            x1.append(d[0][0])
-            x2.append(d[0][1])
+        if d[1][0] == 'heavy':
+            x1.append(d[0][1])
+            x2.append(d[0][5])
 
     plt.scatter(x1, x2)
 
-
-    x1 = []
-    x2 = []
-    for d in data:
-        if d[1][0] == 'Truck':
-            x1.append(d[0][0])
-            x2.append(d[0][1])
-
-    plt.scatter(x1, x2)
     plt.show()
 
 
