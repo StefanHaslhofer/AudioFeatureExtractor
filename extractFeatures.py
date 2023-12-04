@@ -4,6 +4,7 @@ import pandas as pd
 import scipy
 import matplotlib.pyplot as plt
 
+
 def slice_audio(audio, sr, labels):
     """
     get audio samples between start timestamp and end timestamp of labels
@@ -47,7 +48,8 @@ def describe_mfcc(mfcc):
     kurt = scipy.stats.kurtosis(bin_mean)
     iqr = scipy.stats.iqr(bin_mean)
 
-    return [mean, mean_squared, std, var, median, max_energy, max_energy_bin, min_energy, min_energy_bin, q1, q3, skew, kurt, iqr]
+    return [mean, mean_squared, std, var, median, max_energy, max_energy_bin, min_energy, min_energy_bin, q1, q3, skew,
+            kurt, iqr]
 
 
 def ext_freq_features(samples, sr, labels):
@@ -70,9 +72,34 @@ def ext_freq_features(samples, sr, labels):
     return vec
 
 
+def write_arff(freq_features):
+    f = open('dataset.arff', 'w')
+    # write header
+    f.write('@RELATION vehicle\n\n')
+
+    attributes = ['mean', 'mean_squared', 'std', 'var', 'median', 'max_energy', 'max_energy_bin', 'min_energy',
+                  'min_energy_bin', 'q1', 'q3', 'skew', 'kurt', 'iqr']
+    for a in attributes:
+        f.write('@ATTRIBUTE ' + a + ' NUMERIC\n')
+    vehicle_types = ['medium', 'heavy']
+    f.write('@ATTRIBUTE vehicle_type {' + ','.join(vehicle_types) + '}\n')
+    directions = ['LR', 'RL']
+    f.write('@ATTRIBUTE direction {' + ','.join(directions) + '}\n')
+    f.write('\n')
+
+    # write data
+    f.write('@DATA\n')
+    for feats in freq_features:
+        f.write(','.join(str(n) for n in feats[0]) + ',' + ','.join(feats[1]) + '\n')
+
+    f.close()
+
+
 audio, sample_rate = librosa.load('./data/processed/streetNoise1.wav')
 labels = pd.read_csv('./data/processed/streetNoise1.csv', sep=";", header=0)
 
 # extract features from audio range
 audio_slices = slice_audio(audio, sample_rate, labels)
 freq_features = ext_freq_features(audio_slices, sample_rate, labels)
+
+write_arff(freq_features)
