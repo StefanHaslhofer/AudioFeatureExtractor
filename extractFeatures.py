@@ -19,7 +19,7 @@ def slice_audio(audio, sr, labels):
     return slices
 
 
-def describe_mfcc(mfcc, sr):
+def describe_mfcc(mfcc):
     """
     extract features from audio range (as described in https://maelfabien.github.io/machinelearning/Speech9/#)
     """
@@ -38,7 +38,7 @@ def describe_mfcc(mfcc, sr):
     max_energy_bin = np.argmax(bin_mean)
     min_energy = np.amin(bin_mean)
     min_energy_bin = np.argmin(bin_mean)
-    # quantiles
+    # quantiles and mean bin
     q1 = np.quantile(bin_mean, 0.25)
     q3 = np.quantile(bin_mean, 0.75)
 
@@ -63,7 +63,7 @@ def ext_freq_features(samples, sr, labels):
         mfcc = librosa.feature.mfcc(y=y, sr=sr)
         # append tuple of feature vector and label vector
         vec.append((
-            describe_mfcc(mfcc, sr),
+            describe_mfcc(mfcc),
             [labels['vehicleType'][idx], labels['direction'][idx]]
         ))
 
@@ -76,33 +76,3 @@ labels = pd.read_csv('./data/processed/streetNoise1.csv', sep=";", header=0)
 # extract features from audio range
 audio_slices = slice_audio(audio, sample_rate, labels)
 freq_features = ext_freq_features(audio_slices, sample_rate, labels)
-
-
-def scatter_plot(data):
-    plt.figure()
-    plt.xlabel('energy')
-    plt.ylabel('max_energy')
-
-    x1 = []
-    x2 = []
-    for d in data:
-        if d[1][0] == 'medium':
-            x1.append(d[0][1])
-            x2.append(d[0][5])
-
-    plt.scatter(x1, x2)
-
-    x1 = []
-    x2 = []
-    for d in data:
-        if d[1][0] == 'heavy':
-            x1.append(d[0][1])
-            x2.append(d[0][5])
-
-    plt.scatter(x1, x2)
-
-    plt.show()
-
-
-print(freq_features)
-scatter_plot(freq_features)
