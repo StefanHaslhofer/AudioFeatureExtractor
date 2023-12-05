@@ -1,5 +1,8 @@
 # exclude data
 data/
+DataSet/
+*.zip
+.idea/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
