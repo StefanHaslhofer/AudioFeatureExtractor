@@ -2,7 +2,6 @@ import librosa.feature
 import numpy as np
 import pandas as pd
 import scipy
-import matplotlib.pyplot as plt
 
 
 def slice_audio(audio, sr, labels):
@@ -45,11 +44,9 @@ def describe_mfcc(mfcc):
 
     # larger vehicles should be asymmetric to lower frequencies
     skew = scipy.stats.skew(bin_mean)
-    kurt = scipy.stats.kurtosis(bin_mean)
     iqr = scipy.stats.iqr(bin_mean)
 
-    return [mean, mean_squared, std, var, median, max_energy, max_energy_bin, min_energy, min_energy_bin, q1, q3, skew,
-            kurt, iqr]
+    return [mean, mean_squared, std, var, median, max_energy, max_energy_bin, min_energy, min_energy_bin, q1, q3, skew, iqr]
 
 
 def ext_freq_features(samples, sr, labels):
@@ -62,7 +59,7 @@ def ext_freq_features(samples, sr, labels):
     vec = []
     for idx, y in enumerate(samples):
         print('extracting features of sample ', idx, ' of ', len(samples), '...')
-        mfcc = librosa.feature.mfcc(y=y, sr=sr)
+        mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
         # append tuple of feature vector and label vector
         vec.append((
             describe_mfcc(mfcc),
@@ -73,12 +70,12 @@ def ext_freq_features(samples, sr, labels):
 
 
 def write_arff(freq_features):
-    f = open('dataset.arff', 'w')
+    f = open('data/processed/vehicleType_data.arff', 'w')
     # write header
     f.write('@RELATION vehicle\n\n')
 
     attributes = ['mean', 'mean_squared', 'std', 'var', 'median', 'max_energy', 'max_energy_bin', 'min_energy',
-                  'min_energy_bin', 'q1', 'q3', 'skew', 'kurt', 'iqr']
+                  'min_energy_bin', 'q1', 'q3', 'skew', 'iqr']
     for a in attributes:
         f.write('@ATTRIBUTE ' + a + ' NUMERIC\n')
     vehicle_types = ['medium', 'heavy']
@@ -95,8 +92,8 @@ def write_arff(freq_features):
     f.close()
 
 
-audio, sample_rate = librosa.load('./data/processed/streetNoise1.wav')
-labels = pd.read_csv('./data/processed/streetNoise1.csv', sep=";", header=0)
+audio, sample_rate = librosa.load('data/processed/vehicleType_audio_raw.wav')
+labels = pd.read_csv('data/processed/vehicleType_labels.csv', sep=";", header=0)
 
 # extract features from audio range
 audio_slices = slice_audio(audio, sample_rate, labels)
