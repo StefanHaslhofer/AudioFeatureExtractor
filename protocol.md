@@ -77,7 +77,7 @@ After evaluating the features I found that all vehicle types tend to be silent i
 
 **a) J48**
 
-|               | TP Rate | FP Rate | Precistion | Recall | F-Measure | MCC   | ROC Are | PRC Area | Class  |
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Are | PRC Area | Class  |
 | ------------- | ------- | ------- | ---------- | ------ | --------- | ----- | ------- | -------- | ------ |
 |               | 0,950   | 0,714   | 0,884      | 0,950  | 0,916     | 0,301 | 0,570   | 0,855    | medium |
 |         |     0,286 |   0,050 |   0,500 |     0,286 |   0,364    |  0,301 |   0,570  |   0,323 | heavy  |
@@ -87,17 +87,17 @@ Using *J48* I achieved an accuracy of 85.1%. I tried to optimize the result by t
 
 **b) Naïve Bayes**
 
-|               | TP Rate | FP Rate | Precistion | Recall | F-Measure | MCC   | ROC Are | PRC Area | Class  |
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Are | PRC Area | Class  |
 | ------------- | ------- | ------- | ---------- | ------ | --------- | ----- | ------- | -------- | ------ |
 |               | 0,875  |  0,429  |  0,921  |    0,875  |  0,897  |    0,404  |  0,731  |   0,919    | medium |
 |         |     0,571 |   0,125  |  0,444  |    0,571    |0,500  |    0,404  |  0,731  |   0,393 | heavy  |
-| Weighted Avg. |0,830 |   0,383  |  0,850   |   0,830    0,838   |   0,404  |  0,731  |   0,841 |        |
+| Weighted Avg. |0,830 |   0,383  |  0,850   | 0,830  | 0,838     | 0,404 | 0,731   | 0,841 ||
 
 Naive bayes has no parameters in *Weka*.
 
 **c) kNN **
 
-|               | TP Rate | FP Rate | Precistion | Recall | F-Measure | MCC   | ROC Are | PRC Area | Class  |
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Are | PRC Area | Class  |
 | ------------- | ------- | ------- | ---------- | ------ | --------- | ----- | ------- | -------- | ------ |
 |               | 0,963  |  0,714  |  0,885   |   0,963   | 0,922  |    0,337  |  0,693  |   0,909    | medium |
 |         |     0,286  |  0,038  |  0,571   |   0,286  |  0,381   |   0,337  |  0,693  |   0,352 | heavy  |
@@ -107,7 +107,7 @@ At first, I increased k to 10, which resulted in the misclassification of all he
 
 **d) Multilayer perceptron**
 
-|               | TP Rate | FP Rate | Precistion | Recall | F-Measure | MCC   | ROC Are | PRC Area | Class  |
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Are | PRC Area | Class  |
 | ------------- | ------- | ------- | ---------- | ------ | --------- | ----- | ------- | -------- | ------ |
 |               | 0,950  |  0,571  |  0,905   |   0,950  |  0,927   |   0,437  |  0,780  |   0,944    | medium |
 |         |     0,429  |  0,050  |  0,600   |   0,429   | 0,500   |   0,437  |  0,780   |  0,443 | heavy  |
@@ -121,7 +121,7 @@ The multilayer perceptron performed best using the default parameters:
 
 **Summary**
 
-Measured on accuracy the multilayer perceptron performed best. However, the naïve Bayes hat the lowest false positive rate. 
+Measured on accuracy the multilayer perceptron performed best. However, the naïve Bayes achieved the lowest false positive rate. As mentioned before, the dataset used for the vehicle type classification is highly imbalanced which makes the PRC area a suitable metric. The highest score is achieved by the multilayer perceptron (87%), closely followed by the naïve Bayes (84.1%).
 
  ##### 5. Classification of driving direction
 

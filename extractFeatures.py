@@ -70,7 +70,7 @@ def ext_freq_features(samples, sr, labels):
 
 
 def write_arff(freq_features):
-    f = open('data/processed/vehicleType_data.arff', 'w')
+    f = open('data/processed/drivingDirection_data.arff', 'w')
     # write header
     f.write('@RELATION vehicle\n\n')
 
@@ -92,8 +92,8 @@ def write_arff(freq_features):
     f.close()
 
 
-audio, sample_rate = librosa.load('data/processed/vehicleType_audio_raw.wav')
-labels = pd.read_csv('data/processed/vehicleType_labels.csv', sep=";", header=0)
+audio, sample_rate = librosa.load('data/processed/drivingDirection_audio_raw.wav')
+labels = pd.read_csv('data/processed/drivingDirection_labels.csv', sep=";", header=0)
 
 # extract features from audio range
 audio_slices = slice_audio(audio, sample_rate, labels)
