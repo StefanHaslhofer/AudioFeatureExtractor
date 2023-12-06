@@ -77,7 +77,7 @@ After evaluating the features I found that all vehicle types tend to be silent i
 
 **a) J48**
 
-|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Are | PRC Area | Class  |
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class  |
 | ------------- | ------- | ------- | ---------- | ------ | --------- | ----- | ------- | -------- | ------ |
 |               | 0,950   | 0,714   | 0,884      | 0,950  | 0,916     | 0,301 | 0,570   | 0,855    | medium |
 |         |     0,286 |   0,050 |   0,500 |     0,286 |   0,364    |  0,301 |   0,570  |   0,323 | heavy  |
@@ -87,7 +87,7 @@ Using *J48* I achieved an accuracy of 85.1%. I tried to optimize the result by t
 
 **b) Naïve Bayes**
 
-|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Are | PRC Area | Class  |
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class  |
 | ------------- | ------- | ------- | ---------- | ------ | --------- | ----- | ------- | -------- | ------ |
 |               | 0,875  |  0,429  |  0,921  |    0,875  |  0,897  |    0,404  |  0,731  |   0,919    | medium |
 |         |     0,571 |   0,125  |  0,444  |    0,571    |0,500  |    0,404  |  0,731  |   0,393 | heavy  |
@@ -97,7 +97,7 @@ Naive bayes has no parameters in *Weka*.
 
 **c) kNN **
 
-|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Are | PRC Area | Class  |
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class  |
 | ------------- | ------- | ------- | ---------- | ------ | --------- | ----- | ------- | -------- | ------ |
 |               | 0,963  |  0,714  |  0,885   |   0,963   | 0,922  |    0,337  |  0,693  |   0,909    | medium |
 |         |     0,286  |  0,038  |  0,571   |   0,286  |  0,381   |   0,337  |  0,693  |   0,352 | heavy  |
@@ -107,7 +107,7 @@ At first, I increased k to 10, which resulted in the misclassification of all he
 
 **d) Multilayer perceptron**
 
-|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Are | PRC Area | Class  |
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class  |
 | ------------- | ------- | ------- | ---------- | ------ | --------- | ----- | ------- | -------- | ------ |
 |               | 0,950  |  0,571  |  0,905   |   0,950  |  0,927   |   0,437  |  0,780  |   0,944    | medium |
 |         |     0,429  |  0,050  |  0,600   |   0,429   | 0,500   |   0,437  |  0,780   |  0,443 | heavy  |
@@ -125,3 +125,66 @@ Measured on accuracy the multilayer perceptron performed best. However, the naï
 
  ##### 5. Classification of driving direction
 
+*Weka* was used for classifications.
+
+Similar to the vehicle type classification I removed *min energy bin* and *max energy bin* because both are the same for all vehicles. Nevertheless, I kept the *min energy* and *max energy* features because these indeed seem to differ in the two classes LR (left-to-right) and RL (right-to-left).
+
+**Max energy:**
+
+![image-20231206014852072](C:\Users\haslh\AppData\Roaming\Typora\typora-user-images\image-20231206014852072.png)
+
+**Min energy:**
+
+![image-20231206014922349](C:\Users\haslh\AppData\Roaming\Typora\typora-user-images\image-20231206014922349.png)
+
+By estimating the expressiveness of each feature with the help of the *Weka* visualization tool I eliminated further features that did not seem to help the cause. At last I was only left with:
+
+- mean
+- standard deviation
+- variance
+- max energy
+- min energy
+
+**a) J48**
+
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class |
+| ------------- | ------- | ------- | --------- | ------ | --------- | ----- | ------- | -------- | ----- |
+|               | 0,635  |  0,090 |   0,810  |    0,635   | 0,712   |   0,579  |  0,758  |   0,651    | LR    |
+|               | 0,910  |  0,365  |  0,804   |   0,910   | 0,854   |   0,579  |  0,758   |  0,778    | RL    |
+| Weighted Avg. | 0,806  |  0,261  |  0,807  |    0,806  |  0,800  |    0,579  |  0,758   |  0,730    |       |
+
+The accuracy for the driving direction classification with J48 peaks at 80.6%. Identical to the vehicle type classification task the default parameters produced the best score: 0.25 for *confidenceFactor*, 2 for *minNumObj*.
+
+**b) Naïve Bayes**
+
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class |
+| ------------- | ------- | ------- | --------- | ------ | --------- | ----- | -------- | -------- | ----- |
+|               | 0,689  |  0,131  |  0,761   |   0,689  |  0,723  |    0,570  |  0,827  |   0,812    | LR    |
+|               | 0,869  |  0,311  |  0,822   |   0,869  |  0,845   |   0,570  |  0,827   |  0,842    | RL    |
+| Weighted Avg. | 0,801  |  0,243  |  0,799   |   0,801  |  0,799   |   0,570  |  0,827  |   0,831    |       |
+
+Naive bayes has no parameters in *Weka*.
+
+**c) kNN **
+
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class |
+| ------------- | ------- | ------- | --------- | ------ | --------- | ----- | -------- | -------- | ----- |
+|               | 0,622  |  0,049  |  0,885   |   0,622  |  0,730  |    0,629  |  0,812   |  0,787    | LR    |
+|               | 0,951  |  0,378  |  0,806   |   0,951  |  0,872   |   0,629  |  0,812  |   0,831    | RL    |
+| Weighted Avg. | 0,827  |  0,254  |  0,835   |   0,827  |  0,819   |   0,629  |  0,812  |   0,814    |       |
+
+I increased k until the accuracy declined again, which was at k = 15. In contrast to the vehicle type classification the false positive rate is drastically lower, which is probably attributable to the larger and more balanced dataset.
+
+**d) Multilayer perceptron**
+
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class |
+| ------------- | ------- | ------- | --------- | ------ | --------- | ----- | -------- | -------- | ----- |
+|               | 0,689  |  0,098  |  0,810   |   0,689  |  0,745   |   0,613 |   0,835  |   0,804    | LR    |
+|               | 0,902  |  0,311  |  0,827   |   0,902  |  0,863   |   0,613  |  0,835  |   0,849    | RL    |
+| Weighted Avg. | 0,821  |  0,231  |  0,820   |   0,821   | 0,818   |   0,613   | 0,835  |   0,832    |       |
+
+The initial accuracy with default parameters applied was around 80%. At first I doubled the training time as this would lead to an instant 2% growth in accuracy. I also found that even small changes in momentum and learning rate reduces the percentage of correctly classified samples. Additionally, changing the remaining parameters will not further improve the result.
+
+**Summary**
+
+Overall accuracy seems to be lower, but so is the false positive rate. The dataset is larger and far more balanced which makes the ROC area a suitable metric. The ROC area is noticeably larger in all 4 classifiers. Even tough kNN has a better accuracy, the multilayer perceptron is able to achieve higher scores in FPR and ROC area, which makes it the better classifier.
