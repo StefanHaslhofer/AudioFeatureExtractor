@@ -1,0 +1,131 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.MultilayerPerceptron -L 0.3 -M 0.2 -N 1000 -V 0 -S 0 -E 20 -H a
+Relation:     vehicle-weka.filters.unsupervised.attribute.Remove-R6-9,15
+Instances:    94
+Attributes:   10
+              mean
+              mean_squared
+              std
+              var
+              median
+              q1
+              q3
+              skew
+              iqr
+              vehicle_type
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Sigmoid Node 0
+    Inputs    Weights
+    Threshold    -10.748811833621911
+    Node 2    5.824075097517596
+    Node 3    6.479483846765664
+    Node 4    7.8232046690786685
+    Node 5    5.076151149404695
+    Node 6    8.140222849572174
+Sigmoid Node 1
+    Inputs    Weights
+    Threshold    10.747021888956505
+    Node 2    -5.8451926471763045
+    Node 3    -6.477167910352401
+    Node 4    -7.823561460048679
+    Node 5    -5.072373417411729
+    Node 6    -8.126279264425957
+Sigmoid Node 2
+    Inputs    Weights
+    Threshold    -3.8144380665686004
+    Attrib mean    -4.568869077082896
+    Attrib mean_squared    -3.1700938200412714
+    Attrib std    -3.730481618965584
+    Attrib var    -0.7213146787889686
+    Attrib median    7.146004257198348
+    Attrib q1    -2.9301582482945947
+    Attrib q3    -4.3213235863350175
+    Attrib skew    -0.9798041401270399
+    Attrib iqr    -2.460803812435766
+Sigmoid Node 3
+    Inputs    Weights
+    Threshold    -3.1002606134945134
+    Attrib mean    -5.011729401161535
+    Attrib mean_squared    -4.239476009824815
+    Attrib std    -4.47620191480299
+    Attrib var    -1.5446675587057912
+    Attrib median    9.978085043607381
+    Attrib q1    -0.6801440463801475
+    Attrib q3    1.0031929435096816
+    Attrib skew    0.20049161809932703
+    Attrib iqr    1.2587756817060243
+Sigmoid Node 4
+    Inputs    Weights
+    Threshold    -6.155014254361421
+    Attrib mean    -2.429650997066537
+    Attrib mean_squared    3.0494509050422436
+    Attrib std    -4.924388766351975
+    Attrib var    -1.8733689543837098
+    Attrib median    9.596266714924482
+    Attrib q1    0.3860187895745625
+    Attrib q3    1.785458107828878
+    Attrib skew    4.469141508248806
+    Attrib iqr    1.3580537979213876
+Sigmoid Node 5
+    Inputs    Weights
+    Threshold    -3.9616045265891904
+    Attrib mean    -2.2187058527793946
+    Attrib mean_squared    -3.853831140389575
+    Attrib std    -6.315431523238116
+    Attrib var    -3.1014324885164095
+    Attrib median    -0.1858379060835998
+    Attrib q1    1.469036047736496
+    Attrib q3    0.09128975827194973
+    Attrib skew    2.767314033704795
+    Attrib iqr    -1.0054687400401021
+Sigmoid Node 6
+    Inputs    Weights
+    Threshold    -4.017333188219951
+    Attrib mean    -4.519274861999537
+    Attrib mean_squared    -3.881211403883996
+    Attrib std    -3.2930786079063563
+    Attrib var    -0.4247110480554053
+    Attrib median    8.947222212769619
+    Attrib q1    -4.426905180695699
+    Attrib q3    -6.09966710045548
+    Attrib skew    -1.3111979865258283
+    Attrib iqr    -3.3801480644177553
+Class medium
+    Input
+    Node 0
+Class heavy
+    Input
+    Node 1
+
+
+Time taken to build model: 0.11 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances          82               87.234  %
+Incorrectly Classified Instances        12               12.766  %
+Kappa statistic                          0.4291
+Mean absolute error                      0.1514
+Root mean squared error                  0.3481
+Relative absolute error                 58.3476 %
+Root relative squared error             97.5686 %
+Total Number of Instances               94
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,950    0,571    0,905      0,950    0,927      0,437    0,780     0,944     medium
+                 0,429    0,050    0,600      0,429    0,500      0,437    0,780     0,443     heavy
+Weighted Avg.    0,872    0,494    0,859      0,872    0,863      0,437    0,780     0,870
+
+=== Confusion Matrix ===
+
+  a  b   <-- classified as
+ 76  4 |  a = medium
+  8  6 |  b = heavy
+

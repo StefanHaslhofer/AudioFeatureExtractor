@@ -1,0 +1,87 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.MultilayerPerceptron -L 0.3 -M 0.2 -N 1000 -V 0 -S 0 -E 20 -H a
+Relation:     vehicle-weka.filters.unsupervised.attribute.Remove-R2,5,7,9-14
+Instances:    196
+Attributes:   6
+              mean
+              std
+              var
+              max_energy
+              min_energy
+              direction
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Sigmoid Node 0
+    Inputs    Weights
+    Threshold    3.948333500234691
+    Node 2    2.170312239908649
+    Node 3    -3.495250956371537
+    Node 4    -5.536537939873727
+Sigmoid Node 1
+    Inputs    Weights
+    Threshold    -3.9472606464853683
+    Node 2    -2.1692986841587816
+    Node 3    3.4941524932675536
+    Node 4    5.535212848347142
+Sigmoid Node 2
+    Inputs    Weights
+    Threshold    2.1485500667830295
+    Attrib mean    -0.738299902303228
+    Attrib std    1.8116633285459194
+    Attrib var    1.0288800621564034
+    Attrib max_energy    5.416677157798383
+    Attrib min_energy    -10.857760793413473
+Sigmoid Node 3
+    Inputs    Weights
+    Threshold    5.298258391523446
+    Attrib mean    6.484781460520321
+    Attrib std    2.304519654969905
+    Attrib var    0.6852106310595529
+    Attrib max_energy    5.6581993962531305
+    Attrib min_energy    -12.861662250834062
+Sigmoid Node 4
+    Inputs    Weights
+    Threshold    -0.2857835270766721
+    Attrib mean    -3.1852317911214594
+    Attrib std    -11.084009943327104
+    Attrib var    -7.857677460990837
+    Attrib max_energy    8.900077964972898
+    Attrib min_energy    -16.61203752764566
+Class LR
+    Input
+    Node 0
+Class RL
+    Input
+    Node 1
+
+
+Time taken to build model: 0.09 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         161               82.1429 %
+Incorrectly Classified Instances        35               17.8571 %
+Kappa statistic                          0.6086
+Mean absolute error                      0.244
+Root mean squared error                  0.3847
+Relative absolute error                 51.8685 %
+Root relative squared error             79.3305 %
+Total Number of Instances              196
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,689    0,098    0,810      0,689    0,745      0,613    0,835     0,804     LR
+                 0,902    0,311    0,827      0,902    0,863      0,613    0,835     0,849     RL
+Weighted Avg.    0,821    0,231    0,820      0,821    0,818      0,613    0,835     0,832
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+  51  23 |   a = LR
+  12 110 |   b = RL
+
