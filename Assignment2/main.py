@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.fft import fft, fftfreq
 
-gen_plt = True
+gen_plt = False
 # I chose a low sampling rate if 100Hz because I do not need information of higher frequencies.
 # For this task in particular we can assume that hand and foot movements stay similar and minor changes
 # in higher frequencies can be ignored (the human body is not able to swing arms/feet hundreds of times per second).
@@ -30,6 +30,12 @@ def plot_movement(time, x, y, z, total, label):
     plt.title('total acceleration')
 
     plt.suptitle(label)
+    plt.show()
+
+    f = fft(plt_data.values[:, 4])
+    freq = fftfreq(len(plt_data), d=1 / sr)
+    plt.plot(freq[1:], abs(f)[1:])
+    plt.title(label)
     plt.show()
 
 
@@ -65,12 +71,33 @@ def describe_sample(sample):
     max_z = max_acc[3]
     max_mag = max_acc[4]
 
-    x_stft = fft(sample[:, 1])
-    y_stft = fft(sample[:, 2])
-    z_stft = fft(sample[:, 3])
-    mag_stft = fft(sample[:, 4])
+    # analyse frequency domain
+    freq = fftfreq(len(sample), d=1 / sr)[1:]
+    x_fft = abs(fft(sample[:, 1])[1:])
+    y_fft = abs(fft(sample[:, 2])[1:])
+    z_fft = abs(fft(sample[:, 3])[1:])
+    mag_fft = abs(fft(sample[:, 4])[1:])
 
-    return [mean_x, mean_y, mean_z, mean_mag, var_x, var_y, var_z, var_mag, max_x, max_y, max_z, max_mag]
+    # get dominant frequency
+    max_x_freq = freq[np.argmax(x_fft)]
+    max_y_freq = freq[np.argmax(y_fft)]
+    max_z_freq = freq[np.argmax(z_fft)]
+    max_mag_freq = freq[np.argmax(mag_fft)]
+
+    # get dominant frequency energy
+    max_x_en = np.max(x_fft)
+    max_y_en = np.max(y_fft)
+    max_z_en = np.max(z_fft)
+    max_mag_en = np.max(mag_fft)
+
+    x_en = np.sum(x_fft)
+    y_en = np.sum(y_fft)
+    z_en = np.sum(z_fft)
+    mag_en = np.sum(mag_fft)
+
+    return [mean_x, mean_y, mean_z, mean_mag, var_x, var_y, var_z, var_mag, max_x, max_y, max_z, max_mag,
+            max_x_freq, max_y_freq, max_z_freq, max_mag_freq, max_x_en, max_y_en, max_z_en, max_mag_en,
+            x_en, y_en, z_en, mag_en]
 
 
 def extract_features(samples, label):
