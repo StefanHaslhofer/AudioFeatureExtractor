@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.fft import fft, fftfreq
 
-gen_plt = False
+gen_plt = True
 # I chose a low sampling rate if 100Hz because I do not need information of higher frequencies.
 # For this task in particular we can assume that hand and foot movements stay similar and minor changes
 # in higher frequencies can be ignored (the human body is not able to swing arms/feet hundreds of times per second).
