@@ -1,0 +1,87 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.J48 -C 0.25 -M 2
+Relation:     movement
+Instances:    136
+Attributes:   27
+              mean_x
+              mean_y
+              mean_z
+              mean_mag
+              var_x
+              var_y
+              var_z
+              var_mag
+              max_x
+              max_y
+              max_z
+              max_mag
+              max_x_freq
+              max_y_freq
+              max_z_freq
+              max_mag_freq
+              max_x_en
+              max_y_en
+              max_z_en
+              max_mag_en
+              x_en
+              y_en
+              z_en
+              mag_en
+              q1_freq
+              q3_freq
+              measure_positions
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+J48 pruned tree
+------------------
+
+var_z <= 4.836262
+|   max_z_en <= 290.858184
+|   |   x_en <= 8361.019834: left_hand (4.0)
+|   |   x_en > 8361.019834: right_hand (32.0)
+|   max_z_en > 290.858184
+|   |   x_en <= 10485.521364: left_hand (30.0)
+|   |   x_en > 10485.521364: right_hand (2.0)
+var_z > 4.836262
+|   max_z <= 15.6922: right_pocket (33.0)
+|   max_z > 15.6922: left_pocket (35.0/1.0)
+
+Number of Leaves  : 	6
+
+Size of the tree : 	11
+
+
+Time taken to build model: 0 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         120               88.2353 %
+Incorrectly Classified Instances        16               11.7647 %
+Kappa statistic                          0.8431
+Mean absolute error                      0.0622
+Root mean squared error                  0.2394
+Relative absolute error                 16.5824 %
+Root relative squared error             55.238  %
+Total Number of Instances              136
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,853    0,059    0,829      0,853    0,841      0,787    0,924     0,789     left_hand
+                 0,824    0,039    0,875      0,824    0,848      0,801    0,910     0,811     right_hand
+                 0,912    0,020    0,939      0,912    0,925      0,901    0,983     0,907     left_pocket
+                 0,941    0,039    0,889      0,941    0,914      0,885    0,968     0,917     right_pocket
+Weighted Avg.    0,882    0,039    0,883      0,882    0,882      0,843    0,946     0,856
+
+=== Confusion Matrix ===
+
+  a  b  c  d   <-- classified as
+ 29  4  0  1 |  a = left_hand
+  6 28  0  0 |  b = right_hand
+  0  0 31  3 |  c = left_pocket
+  0  0  2 32 |  d = right_pocket
+

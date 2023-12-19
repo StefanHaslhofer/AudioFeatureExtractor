@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.fft import fft, fftfreq
 
-gen_plt = True
+gen_plt = False
 # I chose a low sampling rate if 100Hz because I do not need information of higher frequencies.
 # For this task in particular we can assume that hand and foot movements stay similar and minor changes
 # in higher frequencies can be ignored (the human body is not able to swing arms/feet hundreds of times per second).
@@ -106,7 +106,7 @@ def describe_sample(sample):
     z_en = np.sum(z_fft)
     mag_en = np.sum(mag_fft)
 
-    q = np.quantile(x_fft, [0.25,0.75])
+    q = np.quantile(x_fft, [0.25, 0.75])
     q1_freq = q[0]
     q3_freq = q[1]
 
@@ -126,6 +126,31 @@ def extract_features(samples, label):
         ))
 
     return vec
+
+
+def write_arff(freq_features, file_name=''):
+    if file_name != '':
+        f = open('data/processed/' + file_name + '.arff', 'w')
+    else:
+        f = open('data/processed/movement.arff', 'w')
+    # write header
+    f.write('@RELATION movement\n\n')
+
+    attributes = ['mean_x', 'mean_y', 'mean_z', 'mean_mag', 'var_x', 'var_y', 'var_z', 'var_mag', 'max_x', 'max_y',
+                  'max_z', 'max_mag', 'max_x_freq', 'max_y_freq', 'max_z_freq', 'max_mag_freq', 'max_x_en', 'max_y_en',
+                  'max_z_en', 'max_mag_en', 'x_en', 'y_en', 'z_en', 'mag_en', 'q1_freq', 'q3_freq']
+    for a in attributes:
+        f.write('@ATTRIBUTE ' + a + ' NUMERIC\n')
+    measure_positions = ['left_hand', 'right_hand', 'left_pocket', 'right_pocket']
+    f.write('@ATTRIBUTE measure_positions {' + ','.join(measure_positions) + '}\n')
+    f.write('\n')
+
+    # write data
+    f.write('@DATA\n')
+    for feats in freq_features:
+        f.write(','.join(str(n) for n in feats[0]) + ',' + feats[1] + '\n')
+
+    f.close()
 
 
 # plot left hand
@@ -158,4 +183,20 @@ if gen_plt:
 
 # split samples into slices of 5 sec
 slices = list(slice_sample(left_hand.values, sr=sr, T=5))
-feat = extract_features(slices, 'left_hand')
+feat_lh = extract_features(slices, 'left_hand')
+write_arff(feat_lh, 'left_hand_feat')
+
+slices = list(slice_sample(right_hand.values, sr=sr, T=5))
+feat_rh = extract_features(slices, 'right_hand')
+write_arff(feat_rh, 'right_hand_feat')
+
+slices = list(slice_sample(left_pocket.values, sr=sr, T=5))
+feat_lp = extract_features(slices, 'left_pocket')
+write_arff(feat_lp, 'left_pocket_feat')
+
+slices = list(slice_sample(right_pocket.values, sr=sr, T=5))
+feat_rp = extract_features(slices, 'right_pocket')
+write_arff(feat_rp, 'right_pocket_feat')
+
+feat = feat_lh + feat_rh + feat_lp + feat_rp
+write_arff(feat)

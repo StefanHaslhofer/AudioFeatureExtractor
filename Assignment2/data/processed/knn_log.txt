@@ -1,0 +1,72 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.lazy.IBk -K 3 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation:     movement
+Instances:    136
+Attributes:   27
+              mean_x
+              mean_y
+              mean_z
+              mean_mag
+              var_x
+              var_y
+              var_z
+              var_mag
+              max_x
+              max_y
+              max_z
+              max_mag
+              max_x_freq
+              max_y_freq
+              max_z_freq
+              max_mag_freq
+              max_x_en
+              max_y_en
+              max_z_en
+              max_mag_en
+              x_en
+              y_en
+              z_en
+              mag_en
+              q1_freq
+              q3_freq
+              measure_positions
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+IB1 instance-based classifier
+using 3 nearest neighbour(s) for classification
+
+
+Time taken to build model: 0 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         130               95.5882 %
+Incorrectly Classified Instances         6                4.4118 %
+Kappa statistic                          0.9412
+Mean absolute error                      0.0307
+Root mean squared error                  0.1452
+Relative absolute error                  8.1841 %
+Root relative squared error             33.5176 %
+Total Number of Instances              136
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,029    0,919      1,000    0,958      0,944    0,996     0,978     left_hand
+                 0,941    0,010    0,970      0,941    0,955      0,941    0,982     0,931     right_hand
+                 0,912    0,000    1,000      0,912    0,954      0,941    0,957     0,939     left_pocket
+                 0,971    0,020    0,943      0,971    0,957      0,942    0,984     0,946     right_pocket
+Weighted Avg.    0,956    0,015    0,958      0,956    0,956      0,942    0,980     0,949
+
+=== Confusion Matrix ===
+
+  a  b  c  d   <-- classified as
+ 34  0  0  0 |  a = left_hand
+  2 32  0  0 |  b = right_hand
+  0  1 31  2 |  c = left_pocket
+  1  0  0 33 |  d = right_pocket
+

@@ -1,0 +1,232 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.bayes.NaiveBayes
+Relation:     movement
+Instances:    136
+Attributes:   27
+              mean_x
+              mean_y
+              mean_z
+              mean_mag
+              var_x
+              var_y
+              var_z
+              var_mag
+              max_x
+              max_y
+              max_z
+              max_mag
+              max_x_freq
+              max_y_freq
+              max_z_freq
+              max_mag_freq
+              max_x_en
+              max_y_en
+              max_z_en
+              max_mag_en
+              x_en
+              y_en
+              z_en
+              mag_en
+              q1_freq
+              q3_freq
+              measure_positions
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Naive Bayes Classifier
+
+                      Class
+Attribute         left_hand   right_hand  left_pocket right_pocket
+                     (0.25)       (0.25)       (0.25)       (0.25)
+===================================================================
+mean_x
+  mean                 2.463       2.8581       2.8241       3.0105
+  std. dev.           0.1935       0.3551       0.3954       0.3949
+  weight sum              34           34           34           34
+  precision           0.0186       0.0186       0.0186       0.0186
+
+mean_y
+  mean                2.6369       2.4281        5.252       4.3547
+  std. dev.           0.2324       0.2864       1.0238       0.6937
+  weight sum              34           34           34           34
+  precision            0.039        0.039        0.039        0.039
+
+mean_z
+  mean                1.4452       1.1805       4.4191       3.7277
+  std. dev.           0.2156       0.1575       0.6334       0.5265
+  weight sum              34           34           34           34
+  precision            0.029        0.029        0.029        0.029
+
+mean_mag
+  mean                4.4786       4.4469       8.1212       7.2232
+  std. dev.           0.3388        0.428       1.2989       1.0299
+  weight sum              34           34           34           34
+  precision           0.0539       0.0539       0.0539       0.0539
+
+var_x
+  mean                9.6218      11.6278      13.7068      14.2273
+  std. dev.           1.6124       2.7308       2.9492       2.2339
+  weight sum              34           34           34           34
+  precision           0.1035       0.1035       0.1035       0.1035
+
+var_y
+  mean                9.4343        8.919      44.1656      28.2047
+  std. dev.           1.5608       1.7726      11.5448       5.7005
+  weight sum              34           34           34           34
+  precision           0.4171       0.4171       0.4171       0.4171
+
+var_z
+  mean                2.8277       1.9527      32.4825      22.2572
+  std. dev.           0.8564       0.5319       6.2853       3.7563
+  weight sum              34           34           34           34
+  precision           0.2755       0.2755       0.2755       0.2755
+
+var_mag
+  mean                3.0477        3.443      23.9992      11.9741
+  std. dev.             1.08       1.0785       4.7685       1.2575
+  weight sum              34           34           34           34
+  precision           0.2168       0.2168       0.2168       0.2168
+
+max_x
+  mean                 8.235       8.5488      12.7006      11.7306
+  std. dev.           1.2749       1.1062       1.5692       1.9153
+  weight sum              34           34           34           34
+  precision           0.0751       0.0751       0.0751       0.0751
+
+max_y
+  mean                6.4334       7.2252       25.936      14.4259
+  std. dev.           0.6392       0.5138       5.0884       2.5756
+  weight sum              34           34           34           34
+  precision           0.2087       0.2087       0.2087       0.2087
+
+max_z
+  mean                 4.864       4.5217      20.5801      14.2368
+  std. dev.           0.6306       0.6824       1.3885       3.4234
+  weight sum              34           34           34           34
+  precision           0.2196       0.2196       0.2196       0.2196
+
+max_mag
+  mean                9.0032       9.2856      33.6157      20.0247
+  std. dev.           1.3823       1.2738       4.0175       2.7391
+  weight sum              34           34           34           34
+  precision           0.2342       0.2342       0.2342       0.2342
+
+max_x_freq
+  mean                0.8146       0.8146       3.4978       2.9229
+  std. dev.           0.1358       0.1358       1.2103       1.4262
+  weight sum              34           34           34           34
+  precision           0.8146       0.8146       0.8146       0.8146
+
+max_y_freq
+  mean                1.0703        1.149       2.1722        2.062
+  std. dev.           0.0892       0.3214       0.2885       0.3701
+  weight sum              34           34           34           34
+  precision           0.5352       0.5352       0.5352       0.5352
+
+max_z_freq
+  mean                0.8732       2.2704       1.9461       1.6716
+  std. dev.           0.1433       1.5358       1.4332       0.1433
+  weight sum              34           34           34           34
+  precision           0.8483       0.8483       0.8483       0.8483
+
+max_mag_freq
+  mean                2.2235       2.2729       1.1035       1.7459
+  std. dev.           0.0946       0.6646       0.3956       0.8882
+  weight sum              34           34           34           34
+  precision             0.56         0.56         0.56         0.56
+
+max_x_en
+  mean              858.3958     966.5698     661.1531     545.4446
+  std. dev.          135.493     168.1575     164.9115      88.9808
+  weight sum              34           34           34           34
+  precision            9.149        9.149        9.149        9.149
+
+max_y_en
+  mean              840.8491     752.4715     1096.723      862.733
+  std. dev.         129.0461     157.0475     258.5891     163.8763
+  weight sum              34           34           34           34
+  precision           9.5392       9.5392       9.5392       9.5392
+
+max_z_en
+  mean              429.4749     217.8496     988.5069     882.6943
+  std. dev.         114.4038      49.0138     219.8808     167.9877
+  weight sum              34           34           34           34
+  precision            7.838        7.838        7.838        7.838
+
+max_mag_en
+  mean              403.3378     362.6679     748.3596     471.0649
+  std. dev.          106.368     106.5495     141.7589      64.7527
+  weight sum              34           34           34           34
+  precision            5.714        5.714        5.714        5.714
+
+x_en
+  mean             8014.9831   10047.2299   19920.9754   20862.7483
+  std. dev.        1058.9371     997.8736    3649.1981    2758.8519
+  weight sum              34           34           34           34
+  precision         168.5278     168.5278     168.5278     168.5278
+
+y_en
+  mean             7876.8426    9219.0096   34191.7045    26239.365
+  std. dev.        1134.5641     784.8109    6746.7468    4124.4005
+  weight sum              34           34           34           34
+  precision         285.2105     285.2105     285.2105     285.2105
+
+z_en
+  mean             6102.9936    6473.0919   31893.7658   25928.6519
+  std. dev.         696.0885     723.2114    5693.8372    2461.0497
+  weight sum              34           34           34           34
+  precision         246.7322     246.7322     246.7322     246.7322
+
+mag_en
+  mean             6217.6299    7695.8955   31273.8612    21609.421
+  std. dev.         898.2308     844.8885    5876.9673    1784.0242
+  weight sum              34           34           34           34
+  precision          252.568      252.568      252.568      252.568
+
+q1_freq
+  mean                1.5671       2.0504       7.8478       7.1299
+  std. dev.           0.6404       1.0438       1.3338        1.235
+  weight sum              34           34           34           34
+  precision           0.0688       0.0688       0.0688       0.0688
+
+q3_freq
+  mean                8.3401      10.0934      41.8041      44.2957
+  std. dev.            1.386       2.3013       6.6389       8.4696
+  weight sum              34           34           34           34
+  precision           0.3922       0.3922       0.3922       0.3922
+
+
+
+Time taken to build model: 0 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         130               95.5882 %
+Incorrectly Classified Instances         6                4.4118 %
+Kappa statistic                          0.9412
+Mean absolute error                      0.0208
+Root mean squared error                  0.137
+Relative absolute error                  5.5423 %
+Root relative squared error             31.6156 %
+Total Number of Instances              136
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,020    0,944      1,000    0,971      0,962    1,000     1,000     left_hand
+                 0,941    0,000    1,000      0,941    0,970      0,961    1,000     1,000     right_hand
+                 0,912    0,010    0,969      0,912    0,939      0,921    0,960     0,934     left_pocket
+                 0,971    0,029    0,917      0,971    0,943      0,924    0,958     0,901     right_pocket
+Weighted Avg.    0,956    0,015    0,957      0,956    0,956      0,942    0,979     0,959
+
+=== Confusion Matrix ===
+
+  a  b  c  d   <-- classified as
+ 34  0  0  0 |  a = left_hand
+  2 32  0  0 |  b = right_hand
+  0  0 31  3 |  c = left_pocket
+  0  0  1 33 |  d = right_pocket
+
