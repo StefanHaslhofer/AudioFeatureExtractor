@@ -1,6 +1,6 @@
 # exclude data
-data/
-DataSet/
+Assignment1/data/
+Assignment1/DataSet/
 *.zip
 .idea/
 
