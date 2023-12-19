@@ -11,22 +11,31 @@ sr = 100
 
 
 def plot_movement(time, x, y, z, total, label):
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(10, 8))
+    plt.subplots_adjust(hspace=0.3)
 
     plt.subplot(2, 2, 1)
     plt.plot(time, x, label='x-axis', color='r')
+    plt.xlabel('time (s)')
+    plt.ylabel('acceleration')
     plt.title('x-axis')
 
     plt.subplot(2, 2, 2)
     plt.plot(time, y, label='y-axis', color='g')
+    plt.xlabel('time (s)')
+    plt.ylabel('acceleration')
     plt.title('y-axis')
 
     plt.subplot(2, 2, 3)
     plt.plot(time, z, label='z-axis', color='b')
+    plt.xlabel('time (s)')
+    plt.ylabel('acceleration')
     plt.title('z-axis')
 
     plt.subplot(2, 2, 4)
     plt.plot(time, total, label='total', color='c')
+    plt.xlabel('time (s)')
+    plt.ylabel('acceleration')
     plt.title('total acceleration')
 
     plt.suptitle(label)
@@ -36,6 +45,8 @@ def plot_movement(time, x, y, z, total, label):
     freq = fftfreq(len(plt_data), d=1 / sr)
     plt.plot(freq[1:], abs(f)[1:])
     plt.title(label)
+    plt.xlabel('freq (Hz)')
+    plt.ylabel('power')
     plt.show()
 
 
@@ -95,9 +106,13 @@ def describe_sample(sample):
     z_en = np.sum(z_fft)
     mag_en = np.sum(mag_fft)
 
+    q = np.quantile(x_fft, [0.25,0.75])
+    q1_freq = q[0]
+    q3_freq = q[1]
+
     return [mean_x, mean_y, mean_z, mean_mag, var_x, var_y, var_z, var_mag, max_x, max_y, max_z, max_mag,
             max_x_freq, max_y_freq, max_z_freq, max_mag_freq, max_x_en, max_y_en, max_z_en, max_mag_en,
-            x_en, y_en, z_en, mag_en]
+            x_en, y_en, z_en, mag_en, q1_freq, q3_freq]
 
 
 def extract_features(samples, label):
