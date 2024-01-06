@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.fft import fft, fftfreq
 
-gen_plt = True
+gen_plt = False
+gen_acc_plt = False
 # I chose a low sampling rate if 100Hz because I do not need information of higher frequencies.
 # For this task in particular we can assume that hand and foot movements stay similar and minor changes
 # in higher frequencies can be ignored (the human body is not able to swing arms/feet hundreds of times per second).
@@ -50,6 +51,46 @@ def plot_movement(time, x, y, z, total, label):
     plt.show()
 
 
+def plot_total_acc_freq(sg1, usg1, sg2, usg2, label):
+    plt.figure(figsize=(10, 8))
+    plt.subplots_adjust(hspace=0.3)
+
+    plt.subplot(2, 2, 1)
+    f = fft(sg1.values[:, 4])
+    freq = fftfreq(len(sg1), d=1 / sr)
+    plt.plot(freq[1:], abs(f)[1:])
+    plt.title('screw grip1')
+    plt.xlabel('freq (Hz)')
+    plt.ylabel('power')
+
+    plt.subplot(2, 2, 2)
+    f = fft(usg1.values[:, 4])
+    freq = fftfreq(len(usg1), d=1 / sr)
+    plt.plot(freq[1:], abs(f)[1:])
+    plt.title('unscrew grip1')
+    plt.xlabel('freq (Hz)')
+    plt.ylabel('power')
+
+    plt.subplot(2, 2, 3)
+    f = fft(sg2.values[:, 4])
+    freq = fftfreq(len(sg2), d=1 / sr)
+    plt.plot(freq[1:], abs(f)[1:])
+    plt.title('screw grip2')
+    plt.xlabel('freq (Hz)')
+    plt.ylabel('power')
+
+    plt.subplot(2, 2, 4)
+    f = fft(usg2.values[:, 4])
+    freq = fftfreq(len(usg2), d=1 / sr)
+    plt.plot(freq[1:], abs(f)[1:])
+    plt.title('unscrew grip2')
+    plt.xlabel('freq (Hz)')
+    plt.ylabel('power')
+
+    plt.suptitle(label)
+    plt.show()
+
+
 def slice_sample(sample, sr, T):
     """
     split movement sample into segments of size n
@@ -76,7 +117,7 @@ def describe_sample(sample):
     var_mag = var[4]
 
     # absolute maximum acceleration
-    max_acc = np.max(sample, axis=0)
+    max_acc = np.max(abs(sample), axis=0)
     max_x = max_acc[1]
     max_y = max_acc[2]
     max_z = max_acc[3]
@@ -110,9 +151,8 @@ def describe_sample(sample):
     q1_freq = q[0]
     q3_freq = q[1]
 
-    return [mean_x, mean_y, mean_z, mean_mag, var_x, var_y, var_z, var_mag, max_x, max_y, max_z, max_mag,
-            max_x_freq, max_y_freq, max_z_freq, max_mag_freq, max_x_en, max_y_en, max_z_en, max_mag_en,
-            x_en, y_en, z_en, mag_en, q1_freq, q3_freq]
+    return [mean_x, mean_y, mean_z, mean_mag, var_x, var_y, var_z, var_mag, max_x, max_y, max_z, max_mag, max_x_en,
+            max_y_en, max_z_en, max_mag_en, x_en, y_en, z_en, mag_en]
 
 
 def extract_features(samples, labels):
@@ -137,8 +177,8 @@ def write_arff(freq_features, file_name=''):
     f.write('@RELATION movement\n\n')
 
     attributes = ['mean_x', 'mean_y', 'mean_z', 'mean_mag', 'var_x', 'var_y', 'var_z', 'var_mag', 'max_x', 'max_y',
-                  'max_z', 'max_mag', 'max_x_freq', 'max_y_freq', 'max_z_freq', 'max_mag_freq', 'max_x_en', 'max_y_en',
-                  'max_z_en', 'max_mag_en', 'x_en', 'y_en', 'z_en', 'mag_en', 'q1_freq', 'q3_freq']
+                  'max_z', 'max_mag', 'max_x_en', 'max_y_en', 'max_z_en', 'max_mag_en', 'x_en', 'y_en', 'z_en',
+                  'mag_en']
     for a in attributes:
         f.write('@ATTRIBUTE ' + a + ' NUMERIC\n')
 
@@ -183,6 +223,10 @@ if gen_plt:
     plt_data = unscrew_grip2[1500:2000]
     plot_movement(plt_data['time'], plt_data['ax (m/s^2)'], plt_data['ay (m/s^2)'], plt_data['az (m/s^2)'],
                   plt_data['aT (m/s^2)'], 'unscrew grip2')
+
+if gen_acc_plt:
+    plot_total_acc_freq(screw_grip1[1500:2000], unscrew_grip1[1500:2000], screw_grip2[1500:2000],
+                        unscrew_grip2[1500:2000], 'total acceleration freq')
 
 # split samples into slices of 5 sec
 slices = list(slice_sample(screw_grip1.values, sr=sr, T=5))

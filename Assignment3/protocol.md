@@ -1,18 +1,28 @@
 # Exercise PC Design & Development / Systems and Environments
 
-## Assignment 2
+## Assignment 3
 
 **11908757 Stefan Haslhofer**
 
 ##### 1. Remarks
 
-The data was acquired by walking the same street up and down to have similar recording conditions.
+Each data sample is denoted by an operation (screw/unscrew) and a grip (grip1/grip2). To eliminate possible confusion I
+appended pictures of each grip that I used:
+
+* Grip 1:
+
+  <img src="Grip1.jpg" alt="image" width="auto" height="300">
+* Grip 2:
+
+  <img src="Grip2.jpg" alt="image" width="auto" height="300">
 
 Python code: https://github.com/StefanHaslhofer/PervasiveComputing/tree/main/Assignment3
 
 ##### 2. Data recording
 
-I recorded the acceleration over time on my mobile phone with an app called _Physics Toolbox Sensor Suite_.
+To acquire data I taped my mobile phone to my wrist and screwed/unscrewed the same screw six times with each grip.
+
+I recorded the acceleration of my wrist over time on my mobile phone with an app called _Physics Toolbox Sensor Suite_.
 The app allows access to the phone's built-in linear accelerometer and displays acceleration on x, y and z axis as well
 as a total acceleration value.
 
@@ -22,73 +32,75 @@ The data can be exported as _csv_. Each row contains a timestamp and all axis va
 
 ##### 3. Pre-processing and Segmentation
 
-At first, I plotted the recordings in the time domain and in the frequency domain to get a feeling for the data.
-Looking at the time domain plot, one can see that it takes approximately 1 second to take a step. The frequency domain
-confirms that frequencies in movement are (unsurprisingly) rather low. Hence, I choose to only consider frequencies
-lower than 50Hz for further processing.
-I also split the data recordings into windows of 5 seconds to get enough samples. I used a jumping window approach,
-where windows do not overlap.
+Similar to assignment 2, I plotted the recordings in the time domain and in the frequency domain for a better
+understanding of the data. In the previous assignment I concluded that all important frequencies in movements are quite
+low. Hence, I also only consider low frequencies up to 50Hz for this assignment.  
+Furthermore, I split the data recordings into windows of 5 seconds to get enough samples. I used a jumping window
+approach. Windows do not overlap.
 
-![leftHandTimePlot.png](leftHandTimePlot.png)
+<img src="screwGrip1TimePlot.png" alt="image" width="auto" height="500">
 
-<img src="leftHandFreqPlot.png" alt="image" width="auto" height="400">
+<img src="screwGrip1FreqPlot.png" alt="image" width="auto" height="400">
 
-Above you can see the two plots:
+Above you can see two plots of one screw operation using grip 1:
 
-1. x, y and z-axis plus total acceleration over time
+1. x, y and z-axis acceleration plus as well as total acceleration over time
 2. frequency composition of total acceleration
 
 ##### 4. Feature extraction
 
 Next, I implemented a python script to extract the features and save it to an _arff_-file
 
-First, I calculated statistical features over the absolute signal values such as mean and variance for all axes
-including the total acceleration. I also noticed that the phone accelerates faster in my pockets than in my hands.
-Additionally, the frequencies recorded in my pockets seem to span over a wider spectrum compared to the recordings in my
-hands which can be seen when comparing the following two plots with the left hand's plots in section 3:
+First, I calculated mean and variance for the acceleration of my wrist along all axes as well as for the total
+wrist acceleration. Looking at the result I noticed that the unscrew operation has a larger acceleration along the
+z-axis and the screw operation has more acceleration along the x-axis. However, there is no clear difference in the
+total acceleration of each operation (except some outliers) as can be seen in the two plots below:
 
-![leftPocketTimePlot.png](leftPocketTimePlot.png)
+<img src="screwGrip1TimePlot.png" alt="image" width="auto" height="500">
 
-<img src="leftPocketFreqPlot.png" alt="image" width="auto" height="400">
+<img src="unscrewGrip1TimePlot.png" alt="image" width="auto" height="500">
 
-The significant difference in frequencies gave me reason to believe that I can extract viable information from the
-frequency domain as well. I used scipy's fft implementation for that.
+Regarding the grips, there is a clear difference in acceleration for all axes including the total acceleration, which is
+much higher for grip 1. Following plots visualize the acceleration of my wrist along all axes during the screwing
+operation for both grips:
 
-However, at first glance the frequencies only seem to make suitable distinction between hands and pockets but not
-between left and right of each class.
+<img src="screwGrip1TimePlot.png" alt="image" width="auto" height="500">
+
+<img src="screwGrip2TimePlot.png" alt="image" width="auto" height="500">
+
+Unfortunately, the frequency domain seems not very helpful in this assignment. When comparing the graphs of total
+acceleration signal frequencies for each operation combined with the grips we can hardly spot any difference except for
+the screw operation using grip 1.
+At least the amplitude seems to be moderately higher for the unscrew operation compared to the screw operation:
+
+<img src="totalAccelerationFreq.png" alt="image" width="auto" height="500">
 
 The following table lists all extracted features with some remarks:
 
-| feature               | remark                                                                                                                                                                    |
-|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| mean of x-axis        | mean acceleration of feet tends to be higher than those of hands, also right hand accelerates faster than left hand                                                       |
-| mean of y-axis        | (see mean of x-axis)                                                                                                                                                      |
-| mean of z-axis        | (see mean of x-axis)                                                                                                                                                      |
-| mean of total Acc     | (see mean of x-axis)                                                                                                                                                      |
-| var of x-axis         | variance of feet acceleration also tends to be larger than those of hands                                                                                                 |
-| var of y-axis         | (see var of x-axis)                                                                                                                                                       |
-| var of z-axis         | (see var of x-axis)                                                                                                                                                       |
-| var of total Acc      | (see var of x-axis)                                                                                                                                                       |
-| max x-axis Acc        | the maximum acceleration seems to be higher in the pockets (for all axes), also right hand accelerates faster than left hand                                              |
-| max y-axis Acc        | (see var of x-axis)                                                                                                                                                       |
-| max z-axis Acc        | (see var of x-axis)                                                                                                                                                       |
-| max total Acc         | (see var of x-axis)                                                                                                                                                       |
-| max x-axis freq       | max frequency is slightly higher for pockets                                                                                                                              |
-| max y-axis freq       | (see max x-axis freq)                                                                                                                                                     |
-| max z-axis freq       | (see max x-axis freq)                                                                                                                                                     |
-| max total freq        | (see max x-axis freq)                                                                                                                                                     |
-| max x freq energy     | dominant frequency of pockets has more energy than dominant frequency of hands, also right hand's dominant frequency has more energy than dominant frequency of left hand |
-| max y freq energy     | (see max x freq energy)                                                                                                                                                   |
-| max z freq energy     | (see max x freq energy)                                                                                                                                                   |
-| max total freq energy | (see max x freq energy)                                                                                                                                                   |
-| sum of x-axis energy  | overall energy of frequencies seem to differ between pockets, which is particularly helpful as I did not find a good distinction between left and right pocket yet        |
-| sum of y-axis energy  | (see sum of x-axis energy)                                                                                                                                                |
-| sum of z-axis energy  | (see sum of x-axis energy)                                                                                                                                                |
-| sum of total energy   | (see sum of x-axis energy)                                                                                                                                                |
-| q1 frequency          | frequency distribution differs widely between pockets and hands (see plots)                                                                                               |
-| q2 frequency          | frequency distribution differs widely between pockets and hands (see plots)                                                                                               |
+| feature               | remark                                                                                       |
+|-----------------------|----------------------------------------------------------------------------------------------|
+| mean of x-axis        | mean acceleration of x-axis seems to be higher for the screw operation and grip 1            |
+| mean of y-axis        | mean acceleration of y-axis is slightly lower for grip 2                                     |
+| mean of z-axis        | mean acceleration of z-axis seems to be higher for the unscrew operation and grip 1          |
+| mean of total Acc     | mean acceleration seems to be similar for both screwing and unscrewing but higher for grip 1 |
+| var of x-axis         | variance of wrist acceleration seems to be lower for grip 2                                  |
+| var of y-axis         | (see var of x-axis)                                                                          |
+| var of z-axis         | (see var of x-axis)                                                                          |
+| var of total Acc      | (see var of x-axis)                                                                          |
+| max x-axis Acc        | the maximum acceleration seems to be lower for grip 1 but nearly the same for the operation  |
+| max y-axis Acc        | (see var of x-axis)                                                                          |
+| max z-axis Acc        | (see var of x-axis)                                                                          |
+| max total Acc         | (see var of x-axis)                                                                          |
+| max x freq energy     | maximal amplitude seems to be higher for the unscrew operation                               |
+| max y freq energy     | (see max x freq energy)                                                                      |
+| max z freq energy     | (see max x freq energy)                                                                      |
+| max total freq energy | (see max x freq energy)                                                                      |
+| sum of x-axis energy  | overall amplitude of frequencies seem to be higher for the unscrew operation                 |
+| sum of y-axis energy  | (see sum of x-axis energy)                                                                   |
+| sum of z-axis energy  | (see sum of x-axis energy)                                                                   |
+| sum of total energy   | (see sum of x-axis energy)                                                                   |
 
-##### 5. Classification
+##### 5. Operation classification
 
 *Weka* was used for classifications.
 
@@ -97,13 +109,6 @@ approach as removing some features results in a slightly worse classification an
 
 **a) J48**
 
-|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class        |
-|---------------|---------|---------|-----------|--------|-----------|-------|----------|----------|--------------|
-|               | 0,853   | 0,059   | 0,829     | 0,853  | 0,841     | 0,787 | 0,924    | 0,789    | left_hand    |
-|               | 0,824   | 0,039   | 0,875     | 0,824  | 0,848     | 0,801 | 0,910    | 0,811    | right_hand   |
-|               | 0,912   | 0,020   | 0,939     | 0,912  | 0,925     | 0,901 | 0,983    | 0,907    | left_pocket  |
-|               | 0,941   | 0,039   | 0,889     | 0,941  | 0,914     | 0,885 | 0,968    | 0,917    | right_pocket |
-| Weighted Avg. | 0,882   | 0,039   | 0,883     | 0,882  | 0,882     | 0,843 | 0,946    | 0,856    |              |
 
 Parameter tuning:
 
@@ -170,3 +175,10 @@ In summary, the multilayer perceptron performed best with an accuracy of 96.3%. 
 0.12%. It is also worth mentioning that kNN and the naive bayes deliver nearly indistinguishable results. Because the
 dataset is balanced the ROC Area is also a suitable metric. But even in this category the multilayer perceptron comes
 out on top.
+
+##### 6. Grip classification
+
+*Weka* was used for classifications.
+
+I used the Weka visualization to filter out less significant features by hand. However, this proved to be an incorrect
+approach as removing some features results in a slightly worse classification and is therefore unnecessary.
