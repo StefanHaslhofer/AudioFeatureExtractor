@@ -8,7 +8,7 @@
 
 The data was acquired by walking the same street up and down to have similar recording conditions.
 
-Python code: https://github.com/StefanHaslhofer/PervasiveComputing/tree/main/Assignment2
+Python code: https://github.com/StefanHaslhofer/PervasiveComputing/tree/main/Assignment3
 
 ##### 2. Data recording
 

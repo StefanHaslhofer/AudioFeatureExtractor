@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.fft import fft, fftfreq
 
-gen_plt = False
+gen_plt = True
 # I chose a low sampling rate if 100Hz because I do not need information of higher frequencies.
 # For this task in particular we can assume that hand and foot movements stay similar and minor changes
 # in higher frequencies can be ignored (the human body is not able to swing arms/feet hundreds of times per second).
@@ -63,7 +63,7 @@ def describe_sample(sample):
     """
     extract features from single movement sample slice
     """
-    mean = np.mean(abs(sample), axis=0)
+    mean = np.mean(sample, axis=0)
     mean_x = mean[1]
     mean_y = mean[2]
     mean_z = mean[3]
@@ -76,7 +76,7 @@ def describe_sample(sample):
     var_mag = var[4]
 
     # absolute maximum acceleration
-    max_acc = np.max(abs(sample), axis=0)
+    max_acc = np.max(sample, axis=0)
     max_x = max_acc[1]
     max_y = max_acc[2]
     max_z = max_acc[3]
@@ -115,14 +115,14 @@ def describe_sample(sample):
             x_en, y_en, z_en, mag_en, q1_freq, q3_freq]
 
 
-def extract_features(samples, label):
+def extract_features(samples, labels):
     vec = []
     for idx, sample in enumerate(samples):
         print('extracting features of sample ', idx, ' of ', len(samples), '...')
         # append tuple of feature vector and label vector
         vec.append((
             describe_sample(sample),
-            label
+            labels
         ))
 
     return vec
@@ -132,7 +132,7 @@ def write_arff(freq_features, file_name=''):
     if file_name != '':
         f = open('data/processed/' + file_name + '.arff', 'w')
     else:
-        f = open('data/processed/movement.arff', 'w')
+        f = open('data/processed/screwing.arff', 'w')
     # write header
     f.write('@RELATION movement\n\n')
 
@@ -141,62 +141,65 @@ def write_arff(freq_features, file_name=''):
                   'max_z_en', 'max_mag_en', 'x_en', 'y_en', 'z_en', 'mag_en', 'q1_freq', 'q3_freq']
     for a in attributes:
         f.write('@ATTRIBUTE ' + a + ' NUMERIC\n')
-    measure_positions = ['left_hand', 'right_hand', 'left_pocket', 'right_pocket']
-    f.write('@ATTRIBUTE measure_positions {' + ','.join(measure_positions) + '}\n')
+
+    operation = ['screw', 'unscrew']
+    f.write('@ATTRIBUTE operation {' + ','.join(operation) + '}\n')
+    grip = ['grip1', 'grip2']
+    f.write('@ATTRIBUTE grip {' + ','.join(grip) + '}\n')
     f.write('\n')
 
     # write data
     f.write('@DATA\n')
     for feats in freq_features:
-        f.write(','.join(str(n) for n in feats[0]) + ',' + feats[1] + '\n')
+        f.write(','.join(str(n) for n in feats[0]) + ',' + ','.join(str(n) for n in feats[1]) + '\n')
 
     f.close()
 
 
-# plot left hand
-left_hand = pd.read_csv('data/raw/leftHand.csv', sep=",", header=0)
+# plot screw grip1
+screw_grip1 = pd.read_csv('data/raw/screwGrip1.csv', sep=",", header=0)
 if gen_plt:
-    plt_data = left_hand[1000:1500]
+    plt_data = screw_grip1[1500:2000]
     plot_movement(plt_data['time'], plt_data['ax (m/s^2)'], plt_data['ay (m/s^2)'], plt_data['az (m/s^2)'],
-                  plt_data['aT (m/s^2)'], 'left hand')
+                  plt_data['aT (m/s^2)'], 'screw grip1')
 
-# plot right hand
-right_hand = pd.read_csv('data/raw/rightHand.csv', sep=",", header=0)
+# plot unscrew grip1
+unscrew_grip1 = pd.read_csv('data/raw/unscrewGrip1.csv', sep=",", header=0)
 if gen_plt:
-    plt_data = right_hand[1000:1500]
+    plt_data = unscrew_grip1[1500:2000]
     plot_movement(plt_data['time'], plt_data['ax (m/s^2)'], plt_data['ay (m/s^2)'], plt_data['az (m/s^2)'],
-                  plt_data['aT (m/s^2)'], 'right hand')
+                  plt_data['aT (m/s^2)'], 'unscrew grip1')
 
-# plot left pocket
-left_pocket = pd.read_csv('data/raw/leftPocket.csv', sep=",", header=0)
+# plot screw grip2
+screw_grip2 = pd.read_csv('data/raw/screwGrip2.csv', sep=",", header=0)
 if gen_plt:
-    plt_data = left_pocket[1000:1500]
+    plt_data = screw_grip2[1500:2000]
     plot_movement(plt_data['time'], plt_data['ax (m/s^2)'], plt_data['ay (m/s^2)'], plt_data['az (m/s^2)'],
-                  plt_data['aT (m/s^2)'], 'left pocket')
+                  plt_data['aT (m/s^2)'], 'screw grip2')
 
-# plot right pocket
-right_pocket = pd.read_csv('data/raw/rightPocket.csv', sep=",", header=0)
+# plot unscrew grip2
+unscrew_grip2 = pd.read_csv('data/raw/unscrewGrip2.csv', sep=",", header=0)
 if gen_plt:
-    plt_data = right_pocket[1000:1500]
+    plt_data = unscrew_grip2[1500:2000]
     plot_movement(plt_data['time'], plt_data['ax (m/s^2)'], plt_data['ay (m/s^2)'], plt_data['az (m/s^2)'],
-                  plt_data['aT (m/s^2)'], 'right pocket')
+                  plt_data['aT (m/s^2)'], 'unscrew grip2')
 
 # split samples into slices of 5 sec
-slices = list(slice_sample(left_hand.values, sr=sr, T=5))
-feat_lh = extract_features(slices, 'left_hand')
-write_arff(feat_lh, 'left_hand_feat')
+slices = list(slice_sample(screw_grip1.values, sr=sr, T=5))
+feat_s_g1 = extract_features(slices, ['screw', 'grip1'])
+write_arff(feat_s_g1, 'screw_grip1_feat')
 
-slices = list(slice_sample(right_hand.values, sr=sr, T=5))
-feat_rh = extract_features(slices, 'right_hand')
-write_arff(feat_rh, 'right_hand_feat')
+slices = list(slice_sample(unscrew_grip1.values, sr=sr, T=5))
+feat_us_g1 = extract_features(slices, ['unscrew', 'grip1'])
+write_arff(feat_us_g1, 'unscrew_grip1_feat')
 
-slices = list(slice_sample(left_pocket.values, sr=sr, T=5))
-feat_lp = extract_features(slices, 'left_pocket')
-write_arff(feat_lp, 'left_pocket_feat')
+slices = list(slice_sample(screw_grip2.values, sr=sr, T=5))
+feat_s_g2 = extract_features(slices, ['screw', 'grip2'])
+write_arff(feat_s_g2, 'screw_grip2_feat')
 
-slices = list(slice_sample(right_pocket.values, sr=sr, T=5))
-feat_rp = extract_features(slices, 'right_pocket')
-write_arff(feat_rp, 'right_pocket_feat')
+slices = list(slice_sample(unscrew_grip2.values, sr=sr, T=5))
+feat_us_g2 = extract_features(slices, ['unscrew', 'grip2'])
+write_arff(feat_us_g2, 'unscrew_grip2_feat')
 
-feat = feat_lh + feat_rh + feat_lp + feat_rp
+feat = feat_s_g1 + feat_us_g1 + feat_s_g2 + feat_us_g2
 write_arff(feat)
