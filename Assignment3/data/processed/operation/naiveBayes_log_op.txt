@@ -1,0 +1,172 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.bayes.NaiveBayes
+Relation:     movement-weka.filters.unsupervised.attribute.Remove-R22-weka.filters.unsupervised.attribute.Remove-R4-weka.filters.unsupervised.attribute.Remove-R3
+Instances:    108
+Attributes:   19
+              mean_x
+              mean_y
+              var_x
+              var_y
+              var_z
+              var_mag
+              max_x
+              max_y
+              max_z
+              max_mag
+              max_x_en
+              max_y_en
+              max_z_en
+              max_mag_en
+              x_en
+              y_en
+              z_en
+              mag_en
+              operation
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Naive Bayes Classifier
+
+                   Class
+Attribute          screw   unscrew
+                  (0.49)    (0.51)
+===================================
+mean_x
+  mean             0.0961    0.0332
+  std. dev.        0.1088    0.1355
+  weight sum           53        55
+  precision        0.0067    0.0067
+
+mean_y
+  mean            -0.0108   -0.0626
+  std. dev.         0.039    0.0365
+  weight sum           53        55
+  precision        0.0024    0.0024
+
+var_x
+  mean             1.9507    2.0776
+  std. dev.        1.4156    1.2749
+  weight sum           53        55
+  precision         0.049     0.049
+
+var_y
+  mean             0.2831    0.2556
+  std. dev.        0.1152    0.1331
+  weight sum           53        55
+  precision        0.0055    0.0055
+
+var_z
+  mean              0.985    1.6191
+  std. dev.        0.5624    1.0154
+  weight sum           53        55
+  precision        0.0333    0.0333
+
+var_mag
+  mean             0.8686    1.1558
+  std. dev.        0.6542    0.7775
+  weight sum           53        55
+  precision        0.0411    0.0411
+
+max_x
+  mean              4.462    5.7598
+  std. dev.        1.8739    2.4204
+  weight sum           53        55
+  precision        0.1338    0.1338
+
+max_y
+  mean               1.85    1.9778
+  std. dev.        0.4884    0.6861
+  weight sum           53        55
+  precision        0.0294    0.0294
+
+max_z
+  mean             3.2791    4.5709
+  std. dev.        1.0131    1.5998
+  weight sum           53        55
+  precision        0.0801    0.0801
+
+max_mag
+  mean             5.1131    6.6301
+  std. dev.        2.0598    2.7295
+  weight sum           53        55
+  precision        0.1609    0.1609
+
+max_x_en
+  mean            207.399  169.5224
+  std. dev.      130.6954   98.2458
+  weight sum           53        55
+  precision        4.0397    4.0397
+
+max_y_en
+  mean            70.2835   47.3805
+  std. dev.       19.5745   16.1515
+  weight sum           53        55
+  precision        0.9334    0.9334
+
+max_z_en
+  mean           130.8152  175.3387
+  std. dev.        72.862  107.4702
+  weight sum           53        55
+  precision        3.6977    3.6977
+
+max_mag_en
+  mean           109.4556  131.0691
+  std. dev.        66.118   62.4042
+  weight sum           53        55
+  precision        2.8905    2.8905
+
+x_en
+  mean           8137.344 9332.7703
+  std. dev.     2475.8014 2496.1191
+  weight sum           53        55
+  precision      114.3977  114.3977
+
+y_en
+  mean          3568.4085 3485.3267
+  std. dev.      642.7181  824.6324
+  weight sum           53        55
+  precision       37.2075   37.2075
+
+z_en
+  mean          6487.5749 8379.3233
+  std. dev.     1501.6148 2075.8275
+  weight sum           53        55
+  precision       85.9819   85.9819
+
+mag_en
+  mean          6262.4087 7648.6533
+  std. dev.     2011.4282  2126.057
+  weight sum           53        55
+  precision       97.3336   97.3336
+
+
+
+Time taken to build model: 0 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances          82               75.9259 %
+Incorrectly Classified Instances        26               24.0741 %
+Kappa statistic                          0.52
+Mean absolute error                      0.2641
+Root mean squared error                  0.463
+Relative absolute error                 52.7976 %
+Root relative squared error             92.5561 %
+Total Number of Instances              108
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,849    0,327    0,714      0,849    0,776      0,529    0,854     0,872     screw
+                 0,673    0,151    0,822      0,673    0,740      0,529    0,854     0,850     unscrew
+Weighted Avg.    0,759    0,237    0,769      0,759    0,758      0,529    0,854     0,861
+
+=== Confusion Matrix ===
+
+  a  b   <-- classified as
+ 45  8 |  a = screw
+ 18 37 |  b = unscrew
+

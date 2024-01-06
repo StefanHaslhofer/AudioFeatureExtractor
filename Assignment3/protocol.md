@@ -104,55 +104,50 @@ The following table lists all extracted features with some remarks:
 
 *Weka* was used for classifications.
 
-I used the Weka visualization to filter out less significant features by hand. However, this proved to be an incorrect
-approach as removing some features results in a slightly worse classification and is therefore unnecessary.
+I figured out that the mean of the z-axis and the mean of the total acceleration had a negative impact on the result.
+Therefore, I removed them.
 
 **a) J48**
 
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class   |
+|---------------|---------|---------|-----------|--------|-----------|-------|----------|----------|---------|
+|               | 0,830   | 0,073   | 0,917     | 0,830  | 0,871     | 0,762 | 0,866    | 0,823    | screw   |
+|               | 0,927   | 0,170   | 0,850     | 0,927  | 0,887     | 0,762 | 0,866    | 0,852    | unscrew |
+| Weighted Avg. | 0,880   | 0,122   | 0,883     | 0,880  | 0,879     | 0,762 | 0,866    | 0,838    |         |
 
 Parameter tuning:
 
-* C (confidenceFactor): Changing the parameter _C_ has no effect on the result.
-* M (minNumObj): Changing the parameter _W_ only worsens the result.
+* C (confidenceFactor): Changing the parameter _C_ has hardly any effect on the result. I increased it up to 0.8 and
+  lowered it to 0.01 to see at least some effects but accuracy only gets worse.
+* M (minNumObj): Changing the parameter _M_ only worsens the result. Similar to parameter _C_, only a significant change
+  led to a change at all.
 
 **b) Naïve Bayes**
 
-|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class        |
-|---------------|---------|---------|-----------|--------|-----------|-------|----------|----------|--------------|
-|               | 1,000   | 0,020   | 0,944     | 1,000  | 0,971     | 0,962 | 1,000    | 1,000    | left_hand    |
-|               | 0,941   | 0,000   | 1,000     | 0,941  | 0,970     | 0,961 | 1,000    | 1,000    | right_hand   |
-|               | 0,912   | 0,010   | 0,969     | 0,912  | 0,939     | 0,921 | 0,960    | 0,934    | left_pocket  |
-|               | 0,971   | 0,029   | 0,917     | 0,971  | 0,943     | 0,924 | 0,958    | 0,901    | right_pocket |
-| Weighted Avg. | 0,956   | 0,015   | 0,957     | 0,956  | 0,956     | 0,942 | 0,979    | 0,959    |              |
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class   |
+|---------------|---------|---------|-----------|--------|-----------|-------|----------|----------|---------|
+|               | 0,849   | 0,327   | 0,714     | 0,849  | 0,776     | 0,529 | 0,854    | 0,872    | screw   |
+|               | 0,673   | 0,151   | 0,822     | 0,673  | 0,740     | 0,529 | 0,854    | 0,850    | unscrew |
+| Weighted Avg. | 0,759   | 0,237   | 0,769     | 0,759  | 0,758     | 0,529 | 0,854    | 0,861    |         |
 
 Naive bayes has no parameters in *Weka*.
 
 **c) kNN **
 
-|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class        |
-|---------------|---------|---------|-----------|--------|-----------|-------|----------|----------|--------------|
-|               | 1,000   | 0,029   | 0,919     | 1,000  | 0,958     | 0,944 | 0,996    | 0,978    | left_hand    |
-|               | 0,941   | 0,010   | 0,970     | 0,941  | 0,955     | 0,941 | 0,982    | 0,931    | right_hand   |
-|               | 0,912   | 0,000   | 1,000     | 0,912  | 0,954     | 0,941 | 0,957    | 0,939    | left_pocket  |
-|               | 0,971   | 0,020   | 0,943     | 0,971  | 0,957     | 0,942 | 0,984    | 0,946    | right_pocket |
-| Weighted Avg. | 0,956   | 0,015   | 0,958     | 0,956  | 0,956     | 0,942 | 0,980    | 0,949    |              |
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class   |
+|---------------|---------|---------|-----------|--------|-----------|-------|----------|----------|---------|
+|               | 0,962   | 0,036   | 0,962     | 0,962  | 0,962     | 0,926 | 0,983    | 0,971    | screw   |
+|               | 0,964   | 0,038   | 0,964     | 0,964  | 0,964     | 0,926 | 0,983    | 0,981    | unscrew |
+| Weighted Avg. | 0,963   | 0,037   | 0,963     | 0,963  | 0,963     | 0,926 | 0,983    | 0,976    |         |
 
 Parameter tuning:
 
-* k: I experimented with the parameter _k_ (number of nearest neighbors) until I hit the sweat spot at 3. This allowed
-  me to increase accuracy from 94.9% to 95.6%.
-* W: Increasing _W_ was not effective. A lower number decreased accuracy drastically, however choosing a large value for
-  _W_ (e.g. 300) happens to deliver nearly the same results with slightly worse ROC Area.
+* k: I increased the parameter _k_ (number of nearest neighbors) until the accuracy declined, which was at 3. This
+  allowed me to increase accuracy from 93.52% to 96.3%.
+* W: Increasing _W_ was not effective. A lower number decreased accuracy drastically, whereas choosing a large number (>
+  =100) led to the initial result.
 
 **d) Multilayer perceptron**
-
-|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class        |
-|---------------|---------|---------|-----------|--------|-----------|-------|----------|----------|--------------|
-|               | 0,971   | 0,010   | 0,971     | 0,971  | 0,971     | 0,961 | 0,999    | 0,996    | left_hand    |
-|               | 0,971   | 0,010   | 0,971     | 0,971  | 0,971     | 0,961 | 0,998    | 0,996    | right_hand   |
-|               | 0,941   | 0,010   | 0,970     | 0,941  | 0,955     | 0,941 | 0,999    | 0,996    | left_pocket  |
-|               | 0,971   | 0,020   | 0,943     | 0,971  | 0,957     | 0,942 | 0,969    | 0,974    | right_pocket |
-| Weighted Avg. | 0,963   | 0,012   | 0,963     | 0,963  | 0,963     | 0,951 | 0,991    | 0,991    |              |
 
 Parameter tuning:
 
@@ -167,8 +162,6 @@ Parameter tuning:
   value _1111_ the ROC Area got increased by 0.1%. I could not find a better input.
 - E (validationThreshold): Changing the parameter _E_ has no effect on the result.
 
-Generally speaking, the standard parameters seem to perform good enough on the dataset.
-
 **Summary**
 
 In summary, the multilayer perceptron performed best with an accuracy of 96.3%. It also achieved the lowest FP rate at
@@ -182,3 +175,6 @@ out on top.
 
 I used the Weka visualization to filter out less significant features by hand. However, this proved to be an incorrect
 approach as removing some features results in a slightly worse classification and is therefore unnecessary.
+
+**Summary**
+
