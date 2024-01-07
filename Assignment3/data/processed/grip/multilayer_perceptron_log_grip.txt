@@ -1,0 +1,311 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.MultilayerPerceptron -L 0.1 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a
+Relation:     movement-weka.filters.unsupervised.attribute.Remove-R21-weka.filters.unsupervised.attribute.Remove-R2
+Instances:    108
+Attributes:   20
+              mean_x
+              mean_z
+              mean_mag
+              var_x
+              var_y
+              var_z
+              var_mag
+              max_x
+              max_y
+              max_z
+              max_mag
+              max_x_en
+              max_y_en
+              max_z_en
+              max_mag_en
+              x_en
+              y_en
+              z_en
+              mag_en
+              grip
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Sigmoid Node 0
+    Inputs    Weights
+    Threshold    -0.5982022230899078
+    Node 2    3.7686360128454477
+    Node 3    2.519139258856656
+    Node 4    0.5109952939685087
+    Node 5    2.1700766042637896
+    Node 6    -3.6453314847312885
+    Node 7    0.8922615714241053
+    Node 8    4.000271259217858
+    Node 9    2.1464982654968887
+    Node 10    -2.8578346949551
+    Node 11    -2.9228467276096435
+Sigmoid Node 1
+    Inputs    Weights
+    Threshold    0.6036654414188826
+    Node 2    -3.785715657921935
+    Node 3    -2.554463736012293
+    Node 4    -0.5422027406068597
+    Node 5    -2.1176509314670837
+    Node 6    3.615622020010278
+    Node 7    -0.8479965115468009
+    Node 8    -3.982475977401086
+    Node 9    -2.181803237216858
+    Node 10    2.883172721942557
+    Node 11    2.9224799397507235
+Sigmoid Node 2
+    Inputs    Weights
+    Threshold    2.644005966200943
+    Attrib mean_x    0.2836650916986598
+    Attrib mean_z    -0.7111592264199107
+    Attrib mean_mag    1.577504347876096
+    Attrib var_x    1.1951614146733749
+    Attrib var_y    -0.8906212296484879
+    Attrib var_z    -0.4012304044148933
+    Attrib var_mag    -0.0032482499153632673
+    Attrib max_x    0.32716030749078
+    Attrib max_y    1.8137235681473047
+    Attrib max_z    -0.6427372337975645
+    Attrib max_mag    -0.03704646541131171
+    Attrib max_x_en    2.0801410828837295
+    Attrib max_y_en    0.39102704904648045
+    Attrib max_z_en    0.25476207065457185
+    Attrib max_mag_en    1.2687609273387292
+    Attrib x_en    -0.39075380717189667
+    Attrib y_en    -1.838692220008465
+    Attrib z_en    -1.3977888735425488
+    Attrib mag_en    0.42794902812309127
+Sigmoid Node 3
+    Inputs    Weights
+    Threshold    1.7719966424410873
+    Attrib mean_x    0.09753098114219254
+    Attrib mean_z    -0.5582524213643574
+    Attrib mean_mag    1.0526687938072172
+    Attrib var_x    0.7337304783467595
+    Attrib var_y    -0.4738926333273121
+    Attrib var_z    -0.19630481393592103
+    Attrib var_mag    0.0360820641319042
+    Attrib max_x    0.18570440927707355
+    Attrib max_y    1.2807346743121335
+    Attrib max_z    -0.373455108056411
+    Attrib max_mag    0.08524880731891109
+    Attrib max_x_en    1.315836389636766
+    Attrib max_y_en    0.38140595779101444
+    Attrib max_z_en    0.19034529740158676
+    Attrib max_mag_en    0.8787029200390963
+    Attrib x_en    -0.26296858368214554
+    Attrib y_en    -1.082420390540245
+    Attrib z_en    -0.9262717763118565
+    Attrib mag_en    0.29210655488039694
+Sigmoid Node 4
+    Inputs    Weights
+    Threshold    0.02955514384603942
+    Attrib mean_x    0.09197950944864189
+    Attrib mean_z    -0.23279846110535102
+    Attrib mean_mag    0.227942270864518
+    Attrib var_x    0.19234928375833238
+    Attrib var_y    0.03251850037276414
+    Attrib var_z    0.07950498808389331
+    Attrib var_mag    0.11270949216688025
+    Attrib max_x    0.15596933021541157
+    Attrib max_y    0.28079110330671775
+    Attrib max_z    0.005944704769061572
+    Attrib max_mag    0.17763376046675314
+    Attrib max_x_en    0.36122102383328447
+    Attrib max_y_en    0.20155281716008144
+    Attrib max_z_en    0.19151552049242576
+    Attrib max_mag_en    0.30528538829597174
+    Attrib x_en    -0.01344161470874902
+    Attrib y_en    -0.10011670528295163
+    Attrib z_en    -0.09662972735322758
+    Attrib mag_en    0.08617086248520502
+Sigmoid Node 5
+    Inputs    Weights
+    Threshold    1.4167663962622836
+    Attrib mean_x    0.09749829442112373
+    Attrib mean_z    -0.45272468477042943
+    Attrib mean_mag    0.8684084413095394
+    Attrib var_x    0.6267826303229632
+    Attrib var_y    -0.38212006266963616
+    Attrib var_z    -0.12467129714787084
+    Attrib var_mag    0.02150014819972957
+    Attrib max_x    0.2392285328213847
+    Attrib max_y    1.0339031305868176
+    Attrib max_z    -0.3336807125280857
+    Attrib max_mag    0.08333698106250262
+    Attrib max_x_en    1.127586283052875
+    Attrib max_y_en    0.35008825205232386
+    Attrib max_z_en    0.1792828317016251
+    Attrib max_mag_en    0.7335220723488026
+    Attrib x_en    -0.1700816405282092
+    Attrib y_en    -0.9139487030349817
+    Attrib z_en    -0.7685791784782734
+    Attrib mag_en    0.21594631821124194
+Sigmoid Node 6
+    Inputs    Weights
+    Threshold    -2.3199652082722326
+    Attrib mean_x    -0.27980052990551313
+    Attrib mean_z    0.578315976562211
+    Attrib mean_mag    -1.3745699348941605
+    Attrib var_x    -1.0204397697322245
+    Attrib var_y    0.773104868484545
+    Attrib var_z    0.2563049524305885
+    Attrib var_mag    0.028686127139501923
+    Attrib max_x    -0.3452069292689128
+    Attrib max_y    -1.6810756291981366
+    Attrib max_z    0.5453252120601221
+    Attrib max_mag    -0.08881153402401042
+    Attrib max_x_en    -1.7359103497516477
+    Attrib max_y_en    -0.38079901212152684
+    Attrib max_z_en    -0.21532236524007
+    Attrib max_mag_en    -1.0502338723344933
+    Attrib x_en    0.3042988157935565
+    Attrib y_en    1.6980529850366266
+    Attrib z_en    1.2347530124250692
+    Attrib mag_en    -0.32509861543269264
+Sigmoid Node 7
+    Inputs    Weights
+    Threshold    0.24044532283516973
+    Attrib mean_x    -0.007971654292836718
+    Attrib mean_z    -0.3172015529381202
+    Attrib mean_mag    0.2858653638908543
+    Attrib var_x    0.27333127487518566
+    Attrib var_y    -0.0018197470561075767
+    Attrib var_z    0.05361489387563211
+    Attrib var_mag    0.1715370357765616
+    Attrib max_x    0.20048149770231313
+    Attrib max_y    0.499850308106131
+    Attrib max_z    0.04215704647323401
+    Attrib max_mag    0.0969220727260108
+    Attrib max_x_en    0.48587777723635317
+    Attrib max_y_en    0.3024556104087324
+    Attrib max_z_en    0.11826709832651437
+    Attrib max_mag_en    0.3923846797657213
+    Attrib x_en    -0.038626431198426785
+    Attrib y_en    -0.19818463111071424
+    Attrib z_en    -0.23466669373679816
+    Attrib mag_en    0.15923149262763697
+Sigmoid Node 8
+    Inputs    Weights
+    Threshold    2.8325128923332934
+    Attrib mean_x    0.38264220409264554
+    Attrib mean_z    -0.7151762927697244
+    Attrib mean_mag    1.657498134142536
+    Attrib var_x    1.2167644640029347
+    Attrib var_y    -0.9802606519943022
+    Attrib var_z    -0.3483715793410649
+    Attrib var_mag    -0.025555866778177692
+    Attrib max_x    0.337327375911145
+    Attrib max_y    1.8798926835112755
+    Attrib max_z    -0.6324144760229518
+    Attrib max_mag    0.018871882989768995
+    Attrib max_x_en    2.189944992536613
+    Attrib max_y_en    0.38963221618202054
+    Attrib max_z_en    0.3159742764925775
+    Attrib max_mag_en    1.3203440322712288
+    Attrib x_en    -0.37831563472040164
+    Attrib y_en    -2.007736895770753
+    Attrib z_en    -1.5263451299318642
+    Attrib mag_en    0.4468498632507777
+Sigmoid Node 9
+    Inputs    Weights
+    Threshold    1.4226714186613205
+    Attrib mean_x    -0.1058557506725857
+    Attrib mean_z    -0.5770252069800531
+    Attrib mean_mag    0.8635552184602893
+    Attrib var_x    0.5830639375208729
+    Attrib var_y    -0.31439082614032643
+    Attrib var_z    -0.09636184901885961
+    Attrib var_mag    0.08356376939024665
+    Attrib max_x    0.15828403974210634
+    Attrib max_y    1.0860382719608568
+    Attrib max_z    -0.23804241696443015
+    Attrib max_mag    0.025575767416512407
+    Attrib max_x_en    1.1099444959285931
+    Attrib max_y_en    0.43711768664318723
+    Attrib max_z_en    0.12841698463788437
+    Attrib max_mag_en    0.8428135849696536
+    Attrib x_en    -0.16605162389299968
+    Attrib y_en    -0.8164938599370287
+    Attrib z_en    -0.7551908673825756
+    Attrib mag_en    0.2817026575242734
+Sigmoid Node 10
+    Inputs    Weights
+    Threshold    -1.7168426459852795
+    Attrib mean_x    -0.21208569373409872
+    Attrib mean_z    0.4371862353012258
+    Attrib mean_mag    -1.023835054084198
+    Attrib var_x    -0.7583439822195986
+    Attrib var_y    0.5373657074892603
+    Attrib var_z    0.1565602254250306
+    Attrib var_mag    -0.024928507602780862
+    Attrib max_x    -0.2452562649646758
+    Attrib max_y    -1.3063125783092602
+    Attrib max_z    0.4132915289823044
+    Attrib max_mag    -0.05114809654613087
+    Attrib max_x_en    -1.2827975352204708
+    Attrib max_y_en    -0.3429785261693792
+    Attrib max_z_en    -0.21916172201141293
+    Attrib max_mag_en    -0.8509557100378542
+    Attrib x_en    0.23918736951919486
+    Attrib y_en    1.2306500507123432
+    Attrib z_en    0.9581389395034033
+    Attrib mag_en    -0.28995603923179697
+Sigmoid Node 11
+    Inputs    Weights
+    Threshold    -1.7704325353614352
+    Attrib mean_x    -0.23501971316811968
+    Attrib mean_z    0.5128170043955536
+    Attrib mean_mag    -1.0883652848372949
+    Attrib var_x    -0.7098713306780561
+    Attrib var_y    0.6082672879150713
+    Attrib var_z    0.15867577761790555
+    Attrib var_mag    -0.0211288664854104
+    Attrib max_x    -0.2761743010472859
+    Attrib max_y    -1.3397940493235627
+    Attrib max_z    0.4197038813737647
+    Attrib max_mag    -0.028161758334257804
+    Attrib max_x_en    -1.33372081448955
+    Attrib max_y_en    -0.332642823253665
+    Attrib max_z_en    -0.20902323978732038
+    Attrib max_mag_en    -0.861877159651483
+    Attrib x_en    0.3178935371037919
+    Attrib y_en    1.2529058140884946
+    Attrib z_en    0.9099208087614858
+    Attrib mag_en    -0.27323592183911405
+Class grip1
+    Input
+    Node 0
+Class grip2
+    Input
+    Node 1
+
+
+Time taken to build model: 0.19 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         105               97.2222 %
+Incorrectly Classified Instances         3                2.7778 %
+Kappa statistic                          0.9444
+Mean absolute error                      0.0474
+Root mean squared error                  0.1702
+Relative absolute error                  9.4783 %
+Root relative squared error             34.0387 %
+Total Number of Instances              108
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,964    0,019    0,982      0,964    0,973      0,945    0,993     0,994     grip1
+                 0,981    0,036    0,962      0,981    0,971      0,945    0,993     0,993     grip2
+Weighted Avg.    0,972    0,027    0,972      0,972    0,972      0,945    0,993     0,993
+
+=== Confusion Matrix ===
+
+  a  b   <-- classified as
+ 54  2 |  a = grip1
+  1 51 |  b = grip2
+

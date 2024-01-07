@@ -1,0 +1,68 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.J48 -C 0.25 -M 5
+Relation:     movement-weka.filters.unsupervised.attribute.Remove-R21-weka.filters.unsupervised.attribute.Remove-R2
+Instances:    108
+Attributes:   20
+              mean_x
+              mean_z
+              mean_mag
+              var_x
+              var_y
+              var_z
+              var_mag
+              max_x
+              max_y
+              max_z
+              max_mag
+              max_x_en
+              max_y_en
+              max_z_en
+              max_mag_en
+              x_en
+              y_en
+              z_en
+              mag_en
+              grip
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+J48 pruned tree
+------------------
+
+max_x_en <= 131.90667: grip2 (51.0/1.0)
+max_x_en > 131.90667: grip1 (57.0/2.0)
+
+Number of Leaves  : 	2
+
+Size of the tree : 	3
+
+
+Time taken to build model: 0 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         104               96.2963 %
+Incorrectly Classified Instances         4                3.7037 %
+Kappa statistic                          0.9257
+Mean absolute error                      0.0629
+Root mean squared error                  0.1909
+Relative absolute error                 12.5811 %
+Root relative squared error             38.1823 %
+Total Number of Instances              108
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,982    0,058    0,948      0,982    0,965      0,926    0,939     0,907     grip1
+                 0,942    0,018    0,980      0,942    0,961      0,926    0,939     0,928     grip2
+Weighted Avg.    0,963    0,039    0,964      0,963    0,963      0,926    0,939     0,917
+
+=== Confusion Matrix ===
+
+  a  b   <-- classified as
+ 55  1 |  a = grip1
+  3 49 |  b = grip2
+

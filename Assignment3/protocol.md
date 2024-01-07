@@ -104,8 +104,8 @@ The following table lists all extracted features with some remarks:
 
 *Weka* was used for classifications.
 
-I figured out that the mean of the z-axis and the mean of the total acceleration had a negative impact on the result.
-Therefore, I removed them.
+I figured out that the mean of the z-axis and the mean of the total acceleration had a negative impact on the result (in
+contradiction to my initial assumption stated in section 4). Therefore, I removed them.
 
 **a) J48**
 
@@ -149,32 +149,84 @@ Parameter tuning:
 
 **d) Multilayer perceptron**
 
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class   |
+|---------------|---------|---------|-----------|--------|-----------|-------|----------|----------|---------|
+|               | 0,943   | 0,036   | 0,962     | 0,943  | 0,952     | 0,907 | 0,996    | 0,996    | screw   |
+|               | 0,964   | 0,057   | 0,946     | 0,964  | 0,955     | 0,907 | 0,996    | 0,996    | unscrew |
+| Weighted Avg. | 0,954   | 0,047   | 0,954     | 0,954  | 0,954     | 0,907 | 0,996    | 0,996    |         |
+
 Parameter tuning:
 
-- L (learningRate): A small decrease of the parameter _L_ leads to a slight increase in ROC Area (+0.1%) and PRC Area (
-  +0.1%).
-- M (momentum): Increasing the _momentum_ effects the result negatively. However, a slight decrease leads to a better
-  ROC- (+0.1) and PRC Area (+0.2%). Nonetheless, the accuracy stays the same.
+- L (learningRate): A decrease to 0.1 results in an accuracy increase by 0.93%. If I would decrease the parameter even
+  more or increase it the outcome would be negative.
+- M (momentum): Setting the parameter to 0.25 improves the ROC- and PRC area slightly by 0.1%.
 - N (trainingTime): Changing the parameter _N_ has no effect on the result.
-- V (validationSetSize): Setting _V_ = 10 increases the TP rate by 1.4% and the ROC Area by 0.1%. Additionally, it
-  decreases the FP Rate by 0.5%.
-- S (seed): I increased the _S_ which at first did not change the outcome, however I found that for the randomly entered
-  value _1111_ the ROC Area got increased by 0.1%. I could not find a better input.
+- V (validationSetSize): Accuracy falls with larger parameter _V_.
+- S (seed): Changing the parameter _S_ has no effect on the result.
 - E (validationThreshold): Changing the parameter _E_ has no effect on the result.
 
 **Summary**
 
-In summary, the multilayer perceptron performed best with an accuracy of 96.3%. It also achieved the lowest FP rate at
-0.12%. It is also worth mentioning that kNN and the naive bayes deliver nearly indistinguishable results. Because the
-dataset is balanced the ROC Area is also a suitable metric. But even in this category the multilayer perceptron comes
-out on top.
+In summary, the kNN algorithm performed best with an accuracy of 96.3%. It also achieved the lowest FP rate at
+3.7%. Nonetheless, the multilayer perceptron has the best ROC- and PRC area. Overall I regard the kNN as the best
+solution for this particular classification problem.
 
 ##### 6. Grip classification
 
 *Weka* was used for classifications.
 
-I used the Weka visualization to filter out less significant features by hand. However, this proved to be an incorrect
-approach as removing some features results in a slightly worse classification and is therefore unnecessary.
+I used the Weka visualization to filter out less significant features by hand, which in this classification task is the
+mean of the y-axis.
+
+**a) J48**
+
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class |
+|---------------|---------|---------|-----------|--------|-----------|-------|----------|----------|-------|
+|               | 0,982   | 0,058   | 0,948     | 0,982  | 0,965     | 0,926 | 0,939    | 0,907    | grip1 |
+|               | 0,942   | 0,018   | 0,980     | 0,942  | 0,961     | 0,926 | 0,939    | 0,928    | grip2 |
+| Weighted Avg. | 0,963   | 0,039   | 0,964     | 0,963  | 0,963     | 0,926 | 0,939    | 0,917    |       |
+
+Parameter tuning:
+
+* C (confidenceFactor): Changing the parameter _C_ only worsens the result.
+* M (minNumObj): Decreasing the parameter _M_ has no impact on classifier performance. However, increasing it to a value
+  of 5 improved accuracy by 1.85%.
+
+**b) Naïve Bayes**
+
+Naive bayes has no parameters in *Weka*.
+
+**c) kNN **
+
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class |
+|---------------|---------|---------|-----------|--------|-----------|-------|----------|----------|-------|
+|               | 1,000   | 0,019   | 0,982     | 1,000  | 0,991     | 0,982 | 0,999    | 0,998    | grip1 |
+|               | 0,981   | 0,000   | 1,000     | 0,981  | 0,990     | 0,982 | 0,999    | 0,998    | grip2 |
+| Weighted Avg. | 0,991   | 0,010   | 0,991     | 0,991  | 0,991     | 0,982 | 0,999    | 0,998    |       |
+
+Parameter tuning:
+
+* k: I increased the parameter _k_ until I reached an accuracy of 99.1%, which was at 2. I could not extract a better
+  result with larger _k_.
+* W: Changing _W_ only deteriorated the performance.
+
+**d) Multilayer perceptron**
+
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class |
+|---------------|---------|---------|-----------|--------|-----------|-------|----------|----------|-------|
+|               | 0,964   | 0,019   | 0,982     | 0,964  | 0,973     | 0,945 | 0,993    | 0,994    | grip1 |
+|               | 0,981   | 0,036   | 0,962     | 0,981  | 0,971     | 0,945 | 0,993    | 0,993    | grip2 |
+| Weighted Avg. | 0,972   | 0,027   | 0,972     | 0,972  | 0,972     | 0,945 | 0,993    | 0,993    |       |
+
+Parameter tuning:
+
+- L (learningRate): A decrease to 0.1 leads to an accuracy increase by 1%. Any increase or further decrease of parameter
+  _L_ has an unfavourable effect on the classifier performance.
+- M (momentum): Changing the parameter _M_ worsens the accuracy.
+- N (trainingTime): Increasing the training time worsens the accuracy, decreasing it slightly has no effect.
+- V (validationSetSize): Accuracy falls with larger parameter _V_.
+- S (seed): After trying various seeds I only achieved to decrease accuracy.
+- E (validationThreshold): Changing the parameter _E_ has no effect on the result.
 
 **Summary**
 
