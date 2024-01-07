@@ -1,0 +1,123 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.lazy.IBk -K 3 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation:     movement-weka.filters.unsupervised.attribute.Remove-R22-weka.filters.unsupervised.attribute.Remove-R4-weka.filters.unsupervised.attribute.Remove-R3
+Instances:    108
+Attributes:   19
+              mean_x
+              mean_y
+              var_x
+              var_y
+              var_z
+              var_mag
+              max_x
+              max_y
+              max_z
+              max_mag
+              max_x_en
+              max_y_en
+              max_z_en
+              max_mag_en
+              x_en
+              y_en
+              z_en
+              mag_en
+              operation
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+IB1 instance-based classifier
+using 3 nearest neighbour(s) for classification
+
+
+Time taken to build model: 0 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         104               96.2963 %
+Incorrectly Classified Instances         4                3.7037 %
+Kappa statistic                          0.9259
+Mean absolute error                      0.0954
+Root mean squared error                  0.208
+Relative absolute error                 19.0665 %
+Root relative squared error             41.5747 %
+Total Number of Instances              108
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,962    0,036    0,962      0,962    0,962      0,926    0,983     0,971     screw
+                 0,964    0,038    0,964      0,964    0,964      0,926    0,983     0,981     unscrew
+Weighted Avg.    0,963    0,037    0,963      0,963    0,963      0,926    0,983     0,976
+
+=== Confusion Matrix ===
+
+  a  b   <-- classified as
+ 51  2 |  a = screw
+  2 53 |  b = unscrew
+
+
+
+=== Run information ===
+
+Scheme:       weka.classifiers.lazy.IBk -K 2 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation:     movement-weka.filters.unsupervised.attribute.Remove-R21-weka.filters.unsupervised.attribute.Remove-R2
+Instances:    108
+Attributes:   20
+              mean_x
+              mean_z
+              mean_mag
+              var_x
+              var_y
+              var_z
+              var_mag
+              max_x
+              max_y
+              max_z
+              max_mag
+              max_x_en
+              max_y_en
+              max_z_en
+              max_mag_en
+              x_en
+              y_en
+              z_en
+              mag_en
+              grip
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+IB1 instance-based classifier
+using 2 nearest neighbour(s) for classification
+
+
+Time taken to build model: 0 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         107               99.0741 %
+Incorrectly Classified Instances         1                0.9259 %
+Kappa statistic                          0.9814
+Mean absolute error                      0.0326
+Root mean squared error                  0.118
+Relative absolute error                  6.5223 %
+Root relative squared error             23.5924 %
+Total Number of Instances              108
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,019    0,982      1,000    0,991      0,982    0,999     0,998     grip1
+                 0,981    0,000    1,000      0,981    0,990      0,982    0,999     0,998     grip2
+Weighted Avg.    0,991    0,010    0,991      0,991    0,991      0,982    0,999     0,998
+
+=== Confusion Matrix ===
+
+  a  b   <-- classified as
+ 56  0 |  a = grip1
+  1 51 |  b = grip2
+

@@ -11,10 +11,10 @@ appended pictures of each grip that I used:
 
 * Grip 1:
 
-  <img src="Grip1.jpg" alt="image" width="auto" height="300">
+  <img src="Grip1.jpg" alt="image" width="auto" height="200">
 * Grip 2:
 
-  <img src="Grip2.jpg" alt="image" width="auto" height="300">
+  <img src="Grip2.jpg" alt="image" width="auto" height="200">
 
 Python code: https://github.com/StefanHaslhofer/PervasiveComputing/tree/main/Assignment3
 
@@ -38,9 +38,9 @@ low. Hence, I also only consider low frequencies up to 50Hz for this assignment.
 Furthermore, I split the data recordings into windows of 5 seconds to get enough samples. I used a jumping window
 approach. Windows do not overlap.
 
-<img src="screwGrip1TimePlot.png" alt="image" width="auto" height="500">
+<img src="screwGrip1TimePlot.png" alt="image" width="auto" height="400">
 
-<img src="screwGrip1FreqPlot.png" alt="image" width="auto" height="400">
+<img src="screwGrip1FreqPlot.png" alt="image" width="auto" height="350">
 
 Above you can see two plots of one screw operation using grip 1:
 
@@ -56,24 +56,24 @@ wrist acceleration. Looking at the result I noticed that the unscrew operation h
 z-axis and the screw operation has more acceleration along the x-axis. However, there is no clear difference in the
 total acceleration of each operation (except some outliers) as can be seen in the two plots below:
 
-<img src="screwGrip1TimePlot.png" alt="image" width="auto" height="500">
+<img src="screwGrip1TimePlot.png" alt="image" width="auto" height="400">
 
-<img src="unscrewGrip1TimePlot.png" alt="image" width="auto" height="500">
+<img src="unscrewGrip1TimePlot.png" alt="image" width="auto" height="400">
 
 Regarding the grips, there is a clear difference in acceleration for all axes including the total acceleration, which is
 much higher for grip 1. Following plots visualize the acceleration of my wrist along all axes during the screwing
 operation for both grips:
 
-<img src="screwGrip1TimePlot.png" alt="image" width="auto" height="500">
+<img src="screwGrip1TimePlot.png" alt="image" width="auto" height="400">
 
-<img src="screwGrip2TimePlot.png" alt="image" width="auto" height="500">
+<img src="screwGrip2TimePlot.png" alt="image" width="auto" height="400">
 
 Unfortunately, the frequency domain seems not very helpful in this assignment. When comparing the graphs of total
 acceleration signal frequencies for each operation combined with the grips we can hardly spot any difference except for
 the screw operation using grip 1.
 At least the amplitude seems to be moderately higher for the unscrew operation compared to the screw operation:
 
-<img src="totalAccelerationFreq.png" alt="image" width="auto" height="500">
+<img src="totalAccelerationFreq.png" alt="image" width="auto" height="400">
 
 The following table lists all extracted features with some remarks:
 
@@ -194,6 +194,12 @@ Parameter tuning:
 
 **b) Naïve Bayes**
 
+|               | TP Rate | FP Rate | Precision | Recall | F-Measure | MCC   | ROC Area | PRC Area | Class |
+|---------------|---------|---------|-----------|--------|-----------|-------|----------|----------|-------|
+|               | 0,982   | 0,058   | 0,948     | 0,982  | 0,965     | 0,926 | 0,992    | 0,994    | grip1 |
+|               | 0,942   | 0,018   | 0,980     | 0,942  | 0,961     | 0,926 | 0,992    | 0,992    | grip2 |
+| Weighted Avg. | 0,963   | 0,039   | 0,964     | 0,963  | 0,963     | 0,926 | 0,992    | 0,993    |       |
+
 Naive bayes has no parameters in *Weka*.
 
 **c) kNN **
@@ -229,4 +235,9 @@ Parameter tuning:
 - E (validationThreshold): Changing the parameter _E_ has no effect on the result.
 
 **Summary**
+
+All classifiers perform very well guessing the used grip. However, kNN produces the best outcome with an accuracy of
+99.1%. Furthermore, kNN also has the lowest false positive rate at 1% and the largest ROC- and PRC area (99.9% and
+99.8%). The multilayer perceptron comes second with an accuracy of 97.2%. Note that j48 and naive bayes have identical
+accuracies (96.3%) and false positive rates (3.9%).
 
